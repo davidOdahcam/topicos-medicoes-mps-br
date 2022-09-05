@@ -16,6 +16,7 @@
                         <div class="card-body">
                             <div class="m-sm-4">
                                 <form action="{{ route('projects.store') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
