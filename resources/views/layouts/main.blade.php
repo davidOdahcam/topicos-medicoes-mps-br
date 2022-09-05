@@ -10,10 +10,14 @@
     <link href="./css/app.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
@@ -86,8 +90,7 @@
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Projetos</span>
                         </a>
-                        <ul id="projects" class="sidebar-dropdown list-unstyled collapse"
-                            data-bs-parent="#sidebar">
+                        <ul id="projects" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="index.html">Listar</a>
                             </li>
@@ -102,8 +105,7 @@
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Própositos</span>
                         </a>
-                        <ul id="purpose" class="sidebar-dropdown list-unstyled collapse"
-                            data-bs-parent="#sidebar">
+                        <ul id="purpose" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="index.html">Listar</a>
                             </li>
@@ -118,8 +120,7 @@
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Diretriz</span>
                         </a>
-                        <ul id="directives" class="sidebar-dropdown list-unstyled collapse"
-                            data-bs-parent="#sidebar">
+                        <ul id="directives" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="index.html">Listar</a>
                             </li>
@@ -150,8 +151,7 @@
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Métricas</span>
                         </a>
-                        <ul id="metrics" class="sidebar-dropdown list-unstyled collapse"
-                            data-bs-parent="#sidebar">
+                        <ul id="metrics" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="index.html">Listar</a>
                             </li>
@@ -200,16 +200,31 @@
             </footer>
         </div>
     </div>
-
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="./js/app.js"></script>
     <script type="text/javascript" src="./js/translateTable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
             $('#myTable').DataTable({
                 "language": json
             });
         });
+
+        @if (session('success'))
+            toastr.success("{{ session('success') }}")
+        @endif
+        @if (session('error'))
+            toastr.error("{{ session('error') }}")
+        @endif
+        @if (session('info'))
+            toastr.info("{{ session('info') }}")
+        @endif
+        @if (session('warning'))
+            toastr.warning("{{ session('warning') }}")
+        @endif
     </script>
 </body>
 
