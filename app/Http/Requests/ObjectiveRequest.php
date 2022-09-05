@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePurposeRequest extends FormRequest
+class ObjectiveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class UpdatePurposeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'       => 'required|string',
-            'project_id' => 'required|exists:projects,id'
+            'name' => 'required|string|max:191'
         ];
     }
 
@@ -34,7 +33,7 @@ class UpdatePurposeRequest extends FormRequest
         return [
             'required' => 'Este campo é obrigatório',
             'string'   => 'Este campo deve ser do tipo string',
-            'exists'   => 'Selecione uma opção válida'
+            'max'      => 'Este campo deve ter no máximo :max caracteres'
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MetricRequest;
 use App\Models\Metric;
 use Illuminate\Http\Request;
 
@@ -35,9 +36,11 @@ class MetricController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MetricRequest $request)
     {
-        //
+        Metric::create($request->validated());
+
+        return redirect()->route('metrics.index');
     }
 
     /**
@@ -47,9 +50,11 @@ class MetricController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Metric $metric)
+    public function update(MetricRequest $request, Metric $metric)
     {
-        //
+        $metric->update($request->validated());
+
+        return redirect()->route('metrics.index');
     }
 
     /**
@@ -60,6 +65,8 @@ class MetricController extends Controller
      */
     public function destroy(Metric $metric)
     {
-        //
+        $metric->delete();
+
+        return redirect()->route('metrics.index');
     }
 }

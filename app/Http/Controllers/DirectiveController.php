@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DirectiveRequest;
 use App\Models\Directive;
 use Illuminate\Http\Request;
 
@@ -35,9 +36,11 @@ class DirectiveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DirectiveRequest $request)
     {
-        //
+        Directive::create($request->validated());
+
+        return redirect()->route('directives.index');
     }
 
     /**
@@ -47,9 +50,11 @@ class DirectiveController extends Controller
      * @param  Directive $directive
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Directive $directive)
+    public function update(DirectiveRequest $request, Directive $directive)
     {
-        //
+        $directive->update($request->validated());
+
+        return redirect()->route('directives.index');
     }
 
     /**
@@ -60,6 +65,8 @@ class DirectiveController extends Controller
      */
     public function destroy(Directive $directive)
     {
-        //
+        $directive->delete();
+
+        return redirect()->route('directives.index');
     }
 }

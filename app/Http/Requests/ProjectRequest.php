@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProjectRequest extends FormRequest
+class ProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string'
+            'name' => 'required|string|max:191'
         ];
     }
 
@@ -32,7 +32,8 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             'required' => 'Este campo é obrigatório',
-            'string'   => 'Este campo deve ser do tipo string'
+            'string'   => 'Este campo deve ser do tipo string',
+            'max'      => 'Este campo deve ter no máximo :max caracteres'
         ];
     }
 }

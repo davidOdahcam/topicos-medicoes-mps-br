@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ObjectiveRequest;
 use App\Models\Objective;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class ObjectiveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ObjectiveRequest $request)
     {
         //
     }
@@ -47,7 +48,7 @@ class ObjectiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Objective $objective)
+    public function update(ObjectiveRequest $request, Objective $objective)
     {
         //
     }

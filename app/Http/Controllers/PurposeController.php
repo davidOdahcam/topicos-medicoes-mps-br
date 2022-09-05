@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePurposeRequest;
-use App\Http\Requests\UpdatePurposeRequest;
+use App\Http\Requests\PurposeRequest;
+use App\Models\Project;
 use App\Models\Purpose;
 use Illuminate\Http\Request;
 
@@ -28,7 +28,9 @@ class PurposeController extends Controller
      */
     public function create()
     {
-        return view('pages.purposes.create');
+        return view('pages.purposes.create', [
+            'projects' => Project::select(['id', 'name'])->get()
+        ]);
     }
 
     /**
@@ -37,7 +39,7 @@ class PurposeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePurposeRequest $request)
+    public function store(PurposeRequest $request)
     {
         Purpose::create($request->validated());
 
@@ -51,7 +53,7 @@ class PurposeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePurposeRequest $request, Purpose $purpose)
+    public function update(PurposeRequest $request, Purpose $purpose)
     {
         $purpose->update($request->validated());
 

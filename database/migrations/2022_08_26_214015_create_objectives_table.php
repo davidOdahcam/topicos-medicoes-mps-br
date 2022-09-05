@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Directive;
 
 class CreateObjectivesTable extends Migration
 {
@@ -17,7 +16,6 @@ class CreateObjectivesTable extends Migration
         Schema::create('objectives', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(Directive::class)->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

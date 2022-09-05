@@ -10,8 +10,22 @@ class Metric extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'term',
+        'notion',
+        'impact',
+        'synonymous',
+        'source',
+        'type',
+        'format',
+        'indicator_type',
+        'how_to_calculate',
+        'how_to_analyze',
     ];
+
+    public function synonymin()
+    {
+        return $this->belongsTo(Metric::class, 'synonymous');
+    }
 
     public function objectives()
     {
