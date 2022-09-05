@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <title>@stack('title')</title>
-    <link href="./css/app.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
     <style>
         .sidebar [data-bs-toggle=collapse]:after {
@@ -70,77 +72,85 @@
                         Páginas
                     </li>
 
-                    <li class="sidebar-item">
-                        <a data-bs-target="#projects" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <li class="sidebar-item {{ request()->is('projetos*') ? 'active' : '' }}">
+                        <a data-bs-target="#projects" data-bs-toggle="collapse" class="sidebar-link">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Projetos</span>
                         </a>
-                        <ul id="projects" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
+                        <ul id="projects"
+                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('projetos*') ? 'show' : '' }}"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item {{ request()->is('projetos') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('projects.index') }}">Listar</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item {{ request()->is('projetos/cadastrar') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('projects.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ request()->is('purposes*') ? 'active' : '' }}">
                         <a data-bs-target="#purpose" data-bs-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Própositos</span>
                         </a>
-                        <ul id="purpose" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
+                        <ul id="purpose"
+                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('purposes*') ? 'show' : '' }}"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item {{ request()->is('purposes') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('purposes.index') }}">Listar</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item {{ request()->is('purposes/cadastrar') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('purposes.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
-
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ request()->is('diretrizes*') ? 'active' : '' }}">
                         <a data-bs-target="#directives" data-bs-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Diretriz</span>
                         </a>
-                        <ul id="directives" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
+                        <ul id="directives"
+                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('diretrizes*') ? 'show' : '' }}"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item {{ request()->is('diretrizes') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('directives.index') }}">Listar</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item {{ request()->is('diretrizes/cadastrar') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('directives.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ request()->is('objetivos*') ? 'active' : '' }}">
                         <a data-bs-target="#objectives" data-bs-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Objetivos</span>
                         </a>
-                        <ul id="objectives" class="sidebar-dropdown list-unstyled collapse"
+                        <ul id="objectives"
+                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('objetivos*') ? 'show' : '' }}"
                             data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
+                            <li class="sidebar-item {{ request()->is('objetivos') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('objectives.index') }}">Listar</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item {{ request()->is('objetivos/cadastrar') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('objectives.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ request()->is('metricas*') ? 'active' : '' }}">
                         <a data-bs-target="#metrics" data-bs-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Métricas</span>
                         </a>
-                        <ul id="metrics" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
+                        <ul id="metrics"
+                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('metricas*') ? 'show' : '' }}"
+                            data-bs-parent="#sidebar">
+                            <li class="sidebar-item {{ request()->is('metricas') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('metrics.index') }}">Listar</a>
                             </li>
-                            <li class="sidebar-item">
+                            <li class="sidebar-item {{ request()->is('metricas/cadastrar') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('metrics.create') }}">Criar</a>
                             </li>
                         </ul>
@@ -186,16 +196,21 @@
         </div>
     </div>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="./js/app.js"></script>
-    <script type="text/javascript" src="./js/translateTable.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/translateTable.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
-            $('#myTable').DataTable({
-                "language": json
-            });
+            //se #myTable existir  
+            if ($('#myTable').length) {
+                $('#myTable').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json"
+                    }
+                });
+            }
         });
 
         @if (session('success'))

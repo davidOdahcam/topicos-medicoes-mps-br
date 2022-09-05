@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
@@ -36,7 +37,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input class="form-control form-control-lg" type="text" name="name"
+                                        <input class="form-control form-control-lg" type="text" name="email"
                                             placeholder="Insira seu email" />
                                         @error('email', 'login')
                                             <p class="text-danger mt-1">{{ $message }}</p>
@@ -90,6 +91,14 @@
                                         <input class="form-control form-control-lg" type="password" name="password"
                                             placeholder="Insira sua senha" />
                                         @error('password', 'register')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirmar Senha</label>
+                                        <input class="form-control form-control-lg" type="password" name="password_confirmation"
+                                            placeholder="Insira sua senha" />
+                                        @error('password_confirmation', 'register')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
