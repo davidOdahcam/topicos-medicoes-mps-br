@@ -16,8 +16,8 @@ class CreateObjectiveMetricTable extends Migration
     public function up()
     {
         Schema::create('objective_metric', function (Blueprint $table) {
-            $table->foreignIdFor(Objective::class)->constrained();
-            $table->foreignIdFor(Metric::class)->constrained();
+            $table->foreignIdFor(Objective::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Metric::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->primary(['objective_id', 'metric_id']);
         });
     }

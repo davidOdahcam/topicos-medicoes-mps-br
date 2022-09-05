@@ -16,8 +16,8 @@ class CreateObjectiveDirectiveTable extends Migration
     public function up()
     {
         Schema::create('objective_directive', function (Blueprint $table) {
-            $table->foreignIdFor(Objective::class)->constrained();
-            $table->foreignIdFor(Directive::class)->constrained();
+            $table->foreignIdFor(Objective::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Directive::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->primary(['objective_id', 'directive_id']);
         });
     }

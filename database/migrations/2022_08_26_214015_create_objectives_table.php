@@ -17,7 +17,7 @@ class CreateObjectivesTable extends Migration
         Schema::create('objectives', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(Directive::class);
+            $table->foreignIdFor(Directive::class)->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
