@@ -17,8 +17,8 @@ class CreatePurposeDirectiveTable extends Migration
     public function up()
     {
         Schema::create('purpose_directive', function (Blueprint $table) {
-            $table->foreignIdFor(Purpose::class)->constrained();
-            $table->foreignIdFor(Directive::class)->constrained();
+            $table->foreignIdFor(Purpose::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Directive::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->primary(['purpose_id', 'directive_id']);
         });
     }

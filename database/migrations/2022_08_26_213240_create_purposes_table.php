@@ -18,7 +18,7 @@ class CreatePurposesTable extends Migration
         Schema::create('purposes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(Project::class)->constrained();
+            $table->foreignIdFor(Project::class)->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->timestamps();
         });
     }

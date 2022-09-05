@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Metric;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateMetricsTable extends Migration
@@ -19,7 +21,7 @@ class CreateMetricsTable extends Migration
             $table->string('term');
             $table->string('notion');
             $table->string('impact');
-            $table->string('synonymous');
+            $table->foreignIdFor(Metric::class, 'synonymous')->nullable()->constrained('metrics')->cascadeOnUpdate()->nullOnDelete();
             $table->string('source');
             $table->string('type');
             $table->string('format');
