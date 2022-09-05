@@ -70,21 +70,6 @@
                         Páginas
                     </li>
 
-                    <li class="sidebar-item active">
-                        <a data-bs-target="#users" data-bs-toggle="collapse" class="sidebar-link">
-                            <i class="align-middle" data-feather="sliders"></i> <span
-                                class="align-middle">Usuários</span>
-                        </a>
-                        <ul id="users" class="sidebar-dropdown list-unstyled collapse show"
-                            data-bs-parent="#sidebar">
-                            <li class="sidebar-item active">
-                                <a class="sidebar-link" href="index.html">Listar</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Criar</a>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="sidebar-item">
                         <a data-bs-target="#projects" data-bs-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span
@@ -92,10 +77,10 @@
                         </a>
                         <ul id="projects" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Listar</a>
+                                <a class="sidebar-link" href="{{ route('projects.index') }}">Listar</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Criar</a>
+                                <a class="sidebar-link" href="{{ route('projects.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
@@ -107,10 +92,10 @@
                         </a>
                         <ul id="purpose" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Listar</a>
+                                <a class="sidebar-link" href="{{ route('purposes.index') }}">Listar</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Criar</a>
+                                <a class="sidebar-link" href="{{ route('purposes.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
@@ -122,10 +107,10 @@
                         </a>
                         <ul id="directives" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Listar</a>
+                                <a class="sidebar-link" href="{{ route('directives.index') }}">Listar</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Criar</a>
+                                <a class="sidebar-link" href="{{ route('directives.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
@@ -138,10 +123,10 @@
                         <ul id="objectives" class="sidebar-dropdown list-unstyled collapse"
                             data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Listar</a>
+                                <a class="sidebar-link" href="{{ route('objectives.index') }}">Listar</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Criar</a>
+                                <a class="sidebar-link" href="{{ route('objectives.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
@@ -153,10 +138,10 @@
                         </a>
                         <ul id="metrics" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Listar</a>
+                                <a class="sidebar-link" href="{{ route('metrics.index') }}">Listar</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">Criar</a>
+                                <a class="sidebar-link" href="{{ route('metrics.create') }}">Criar</a>
                             </li>
                         </ul>
                     </li>
