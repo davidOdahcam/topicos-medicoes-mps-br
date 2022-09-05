@@ -14,7 +14,9 @@ class DirectiveController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.directives.index', [
+            'directives' => Directive::paginate()
+        ]);
     }
 
     /**

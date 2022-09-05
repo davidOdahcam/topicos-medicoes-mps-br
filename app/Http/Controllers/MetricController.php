@@ -14,7 +14,9 @@ class MetricController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.metrics.index', [
+            'metrics' => Metric::paginate()
+        ]);
     }
 
     /**

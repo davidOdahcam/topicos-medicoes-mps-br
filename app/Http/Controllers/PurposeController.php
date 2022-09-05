@@ -14,7 +14,9 @@ class PurposeController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.purposes.index', [
+            'purposes' => Purpose::paginate()
+        ]);
     }
 
     /**

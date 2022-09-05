@@ -14,7 +14,9 @@ class ObjectiveController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.objectives.index', [
+            'objectives' => Objective::paginate()
+        ]);
     }
 
     /**

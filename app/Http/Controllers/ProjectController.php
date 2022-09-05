@@ -12,9 +12,11 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('pages.projects.index', [
+            'projects' => Project::paginate()
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.projects.create');
     }
 
     /**
