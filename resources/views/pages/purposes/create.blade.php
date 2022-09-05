@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @push('title')
-    Cadastro de Projeto
+    Cadastro de Propósito
 @endpush
 
 @section('content')
@@ -10,19 +10,30 @@
             <div class="container d-flex justify-content-center flex-column">
                 <div class="d-flex justify-content-center flex-column">
                     <div class="text-center mt-4">
-                        <h1 class="h2 mb-3">Cadastro de Projeto</h1>
+                        <h1 class="h2 mb-3">Cadastro de Propósito</h1>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <div class="m-sm-4">
-                                <form action="{{ route('projects.store') }}" method="POST">
+                                <form action="{{ route('purposes.store') }}" method="POST">
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Nome do propósito</label>
+                                                <input class="form-control form-control-lg" type="text" name="name"
+                                                    placeholder="Nome do propósito" />
+                                                @error('name')
+                                                    <p class="text-danger mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Nome do projeto</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Nome do projeto" />
-                                                @error('name')
+                                                <select name="project_id" class="form-select form-select-lg">
+                                                    <option value="">Selecione um projeto</option>
+                                                </select>
+                                                @error('project_id')
                                                     <p class="text-danger mt-1">{{ $message }}</p>
                                                 @enderror
                                             </div>

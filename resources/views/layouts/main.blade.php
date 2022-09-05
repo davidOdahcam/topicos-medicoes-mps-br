@@ -89,18 +89,18 @@
                         </ul>
                     </li>
 
-                    <li class="sidebar-item {{ request()->is('purposes*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ request()->is('propositos*') ? 'active' : '' }}">
                         <a data-bs-target="#purpose" data-bs-toggle="collapse" class="sidebar-link collapsed">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Própositos</span>
                         </a>
                         <ul id="purpose"
-                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('purposes*') ? 'show' : '' }}"
+                            class="sidebar-dropdown list-unstyled collapse {{ request()->is('propositos*') ? 'show' : '' }}"
                             data-bs-parent="#sidebar">
-                            <li class="sidebar-item {{ request()->is('purposes') ? 'active' : '' }}">
+                            <li class="sidebar-item {{ request()->is('propositos') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('purposes.index') }}">Listar</a>
                             </li>
-                            <li class="sidebar-item {{ request()->is('purposes/cadastrar') ? 'active' : '' }}">
+                            <li class="sidebar-item {{ request()->is('propositos/cadastrar') ? 'active' : '' }}">
                                 <a class="sidebar-link" href="{{ route('purposes.create') }}">Criar</a>
                             </li>
                         </ul>
@@ -168,8 +168,9 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
                         <li class="nav-item dropdown">
+                            <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"></form>
                             <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown"
-                                data-bs-toggle="dropdown">
+                                data-bs-toggle="dropdown" onclick="document.getElementById('logout-form').submit()">
                                 <div class="position-relative">
                                     <i class="align-middle" data-feather="log-out"></i>
                                 </div>
