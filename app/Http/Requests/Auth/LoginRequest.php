@@ -11,6 +11,8 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    public $errorBag = 'login';
+
     /**
      * Determine if the user is authorized to make this request.
      *

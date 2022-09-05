@@ -38,7 +38,7 @@
                                         <label class="form-label">Email</label>
                                         <input class="form-control form-control-lg" type="text" name="name"
                                             placeholder="Insira seu email" />
-                                        @error('login.email')
+                                        @error('email', 'login')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -46,7 +46,7 @@
                                         <label class="form-label">Senha</label>
                                         <input class="form-control form-control-lg" type="password" name="password"
                                             placeholder="Insira sua senha" />
-                                        @error('login.password')
+                                        @error('password', 'login')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -73,7 +73,7 @@
                                         <label class="form-label">Nome</label>
                                         <input class="form-control form-control-lg" type="text" name="name"
                                             placeholder="Insira seu nome" />
-                                        @error('name')
+                                        @error('name', 'register')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -81,7 +81,7 @@
                                         <label class="form-label">Email</label>
                                         <input class="form-control form-control-lg" type="email" name="email"
                                             placeholder="Insira seu email" />
-                                        @error('register.email')
+                                        @error('email', 'register')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -89,7 +89,7 @@
                                         <label class="form-label">Senha</label>
                                         <input class="form-control form-control-lg" type="password" name="password"
                                             placeholder="Insira sua senha" />
-                                        @error('register.password')
+                                        @error('password', 'register')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
