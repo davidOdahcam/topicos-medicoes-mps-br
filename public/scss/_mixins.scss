@@ -1,0 +1,11 @@
+@mixin line-after($width: 150px) {
+    &::after {
+        content: "";
+        display: block;
+        max-width: $width;
+        height: 2px;
+        margin-top: 5px;
+        border-radius: 1px;
+        background-color: $color-3;
+    }
+}
