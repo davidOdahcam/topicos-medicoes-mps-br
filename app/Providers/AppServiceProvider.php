@@ -28,9 +28,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Route::resourceVerbs([
+            'index'  => 'listar',
             'create' => 'cadastrar',
-            'edit'   => 'alterar',
-            'show'   => 'exibir',
         ]);
     }
 }
