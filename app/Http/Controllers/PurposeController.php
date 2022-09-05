@@ -26,7 +26,7 @@ class PurposeController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.purposes.create');
     }
 
     /**

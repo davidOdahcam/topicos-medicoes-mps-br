@@ -26,7 +26,7 @@ class ObjectiveController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.objectives.create');
     }
 
     /**

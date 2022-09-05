@@ -26,7 +26,7 @@ class DirectiveController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.directives.create');
     }
 
     /**

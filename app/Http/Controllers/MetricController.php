@@ -26,7 +26,7 @@ class MetricController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.metrics.create');
     }
 
     /**
