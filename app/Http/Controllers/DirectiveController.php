@@ -39,28 +39,6 @@ class DirectiveController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  Directive $directive
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Directive $directive)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Directive $directive
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Directive $directive)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
