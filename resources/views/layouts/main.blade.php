@@ -168,13 +168,15 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
                         <li class="nav-item dropdown">
-                            <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"></form>
-                            <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown"
-                                data-bs-toggle="dropdown" onclick="document.getElementById('logout-form').submit()">
+                            <a class="nav-icon dropdown-toggle" href="#" onclick="document.getElementById('logout-form').submit()" id="messagesDropdown"
+                                data-bs-toggle="dropdown">
                                 <div class="position-relative">
                                     <i class="align-middle" data-feather="log-out"></i>
                                 </div>
                             </a>
+                            <form action="{{ route('auth.logout') }}" method="POST" id="logout-form">
+                                @csrf
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -204,7 +206,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
-            //se #myTable existir  
+            //se #myTable existir
             if ($('#myTable').length) {
                 $('#myTable').DataTable({
                     "language": {

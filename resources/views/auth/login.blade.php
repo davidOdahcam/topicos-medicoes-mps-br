@@ -42,6 +42,9 @@
                                         @error('email', 'login')
                                             <p class="text-danger mt-1">{{ $message }}</p>
                                         @enderror
+                                        @error('email', 'default')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Senha</label>
