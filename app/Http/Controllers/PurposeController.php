@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePurposeRequest;
+use App\Http\Requests\UpdatePurposeRequest;
 use App\Models\Purpose;
 use Illuminate\Http\Request;
 
@@ -35,9 +37,11 @@ class PurposeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePurposeRequest $request)
     {
-        //
+        Purpose::create($request->validated());
+
+        return redirect()->route('purposes.index');
     }
 
     /**
@@ -47,9 +51,11 @@ class PurposeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Purpose $purpose)
+    public function update(UpdatePurposeRequest $request, Purpose $purpose)
     {
-        //
+        $purpose->update($request->validated());
+
+        return redirect()->route('purposes.index');
     }
 
     /**
@@ -60,6 +66,8 @@ class PurposeController extends Controller
      */
     public function destroy(Purpose $purpose)
     {
-        //
+        $purpose->delete();
+
+        return redirect()->route('purposes.index');
     }
 }
