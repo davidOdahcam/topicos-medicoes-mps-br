@@ -70,6 +70,10 @@
         .toast-warning{
             background-color:#F89406 !important;
         }
+
+        .filter-white {
+            filter: brightness(0) invert(1);
+        }
     </style>
 </head>
 
@@ -77,8 +81,10 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
-                    <span class="align-middle">Projeto</span>
+                <a class="sidebar-brand" href="/">
+                    <span class="align-middle">
+                        <img class="filter-white" src="{{asset('img/logo.png')}}" alt="logo">
+                    </span>
                 </a>
 
                 <ul class="sidebar-nav">
