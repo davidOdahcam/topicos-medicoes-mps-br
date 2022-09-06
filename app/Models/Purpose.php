@@ -21,6 +21,6 @@ class Purpose extends Model
 
     public function directives()
     {
-        return $this->belongsToMany(Directive::class);
+        return $this->belongsToMany(Directive::class, 'purpose_directive');
     }
 }

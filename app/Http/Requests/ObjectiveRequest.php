@@ -24,7 +24,9 @@ class ObjectiveRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:191'
+            'name'           => 'required|string|max:191',
+            'directive_id'   => 'required|array',
+            'directive_id.*' => 'exists:directives,id',
         ];
     }
 

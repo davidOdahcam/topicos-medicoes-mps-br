@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MetricRequest;
 use App\Models\Metric;
+use App\Models\Objective;
 use Illuminate\Http\Request;
 
 class MetricController extends Controller
@@ -25,9 +26,13 @@ class MetricController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('pages.metrics.create');
+        return view('pages.metrics.create', [
+            'objective_id' => $request->query('objective_id'),
+            'objectives'   => Objective::select(['id', 'name'])->get(),
+            'metrics'      => Metric::select(['id', 'term'])->get()
+        ]);
     }
 
     /**
@@ -38,7 +43,8 @@ class MetricController extends Controller
      */
     public function store(MetricRequest $request)
     {
-        Metric::create($request->validated());
+        $metric = Metric::create($request->validated());
+        $metric->objectives()->attach($request->input('objective_id'));
 
         return redirect()->route('metrics.index');
     }

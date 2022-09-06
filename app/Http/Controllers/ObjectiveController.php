@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ObjectiveRequest;
+use App\Models\Directive;
 use App\Models\Objective;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,12 @@ class ObjectiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('pages.objectives.create');
+        return view('pages.objectives.create', [
+            'directive_id' => $request->query('directive_id'),
+            'directives'   => Directive::select(['id', 'name'])->get()
+        ]);
     }
 
     /**
@@ -38,7 +42,14 @@ class ObjectiveController extends Controller
      */
     public function store(ObjectiveRequest $request)
     {
-        //
+        $objective = Objective::create($request->validated());
+        $objective->directives()->attach($request->input('directive_id'));
+
+        if ($request->input('submit_type') === 'next') {
+            return redirect()->route('metrics.create', ['objective_id' => $objective->id]);
+        } else {
+            return back();
+        }
     }
 
     /**

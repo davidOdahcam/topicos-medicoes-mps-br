@@ -15,11 +15,11 @@ class Objective extends Model
 
     public function directives()
     {
-        return $this->belongsToMany(Purpose::class);
+        return $this->belongsToMany(Directive::class, 'objective_directive');
     }
 
     public function metrics()
     {
-        return $this->belongsToMany(Metric::class);
+        return $this->belongsToMany(Metric::class, 'objective_metric');
     }
 }

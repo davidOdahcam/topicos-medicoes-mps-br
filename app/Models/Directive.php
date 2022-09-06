@@ -20,6 +20,6 @@ class Directive extends Model
 
     public function objectives()
     {
-        return $this->belongsToMany(Objective::class);
+        return $this->belongsToMany(Objective::class, 'objective_directive');
     }
 }

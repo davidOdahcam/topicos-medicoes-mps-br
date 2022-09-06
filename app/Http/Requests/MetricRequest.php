@@ -27,13 +27,14 @@ class MetricRequest extends FormRequest
             'term'             => 'required|string|max:191',
             'notion'           => 'required|string|max:191',
             'impact'           => 'required|string|max:191',
-            'synonymous'       => 'required|exists:metrics,id',
+            'synonymous'       => 'nullable|exists:metrics,id',
             'source'           => 'required|string|max:191',
             'type'             => 'required|string|max:191',
             'format'           => 'required|string|max:191',
             'indicator_type'   => 'required|string|max:191',
             'how_to_calculate' => 'required|string|max:191',
             'how_to_analyze'   => 'required|string|max:191',
+            'objective_id'     => 'required|exists:objectives,id',
         ];
     }
 
