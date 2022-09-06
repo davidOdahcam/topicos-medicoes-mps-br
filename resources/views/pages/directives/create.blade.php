@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @push('title')
-	Cadastro de Diretivas
+    Cadastro de Diretrizes
 @endpush
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="container d-flex justify-content-center flex-column">
                 <div class="d-flex justify-content-center flex-column">
                     <div class="text-center mt-4">
-                        <h1 class="h2 mb-3">Cadastro de Diretivas</h1>
+                        <h1 class="h2 mb-3">Cadastro de Diretrizes</h1>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -21,17 +21,23 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Nome</label>
-                                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Nome" />
+                                                <input class="form-control form-control-lg" type="text" name="name"
+                                                    placeholder="Nome" value="{{ old('name') }}" required maxlength="191" />
+                                                @error('name')
+                                                    <p class="text-danger mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Selecione o propósito</label>
-                                                <select name="purpose_id" class="form-select form-select-lg">
+                                                <select name="purpose_id" class="form-select form-select-lg" required>
                                                     <option value="">Selecione um propósito</option>
                                                     @foreach ($purposes as $purpose)
-                                                        <option value="{{ $purpose->id }}" {{ ($purpose->id == (old('purpose_id') ?? $purpose_id)) ? 'selected' : '' }}>{{ $purpose->name }}</option>
+                                                        <option value="{{ $purpose->id }}"
+                                                            {{ $purpose->id == (old('purpose_id') ?? $purpose_id) ? 'selected' : '' }}>
+                                                            {{ $purpose->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('purpose_id')
@@ -55,3 +61,4 @@
         </div>
     </main>
 @endsection
+

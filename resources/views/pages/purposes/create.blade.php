@@ -22,7 +22,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Nome do propósito</label>
                                                 <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Nome do propósito" />
+                                                    placeholder="Nome do propósito" required maxlength="191" />
                                                 @error('name')
                                                     <p class="text-danger mt-1">{{ $message }}</p>
                                                 @enderror
@@ -32,7 +32,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Selecione o projeto</label>
-                                                <select name="project_id" class="form-select form-select-lg">
+                                                <select name="project_id" class="form-select form-select-lg" required>
                                                     <option value="">Selecione um projeto</option>
                                                     @foreach ($projects as $project)
                                                         <option value="{{ $project->id }}" {{ ($project->id == (old('project_id') ?? $project_id)) ? 'selected' : '' }}>{{ $project->name }}</option>

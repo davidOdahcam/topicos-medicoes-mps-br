@@ -22,7 +22,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Nome do projeto</label>
                                                 <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Nome do projeto" />
+                                                    placeholder="Nome do projeto" value="{{old('name')}}" required maxlength="191" />
                                                 @error('name')
                                                     <p class="text-danger mt-1">{{ $message }}</p>
                                                 @enderror

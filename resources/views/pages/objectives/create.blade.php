@@ -21,15 +21,18 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Nome</label>
-                                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Nome" />
+                                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Nome" required maxlength="191" value="{{ old('name') }}" />
+                                                @error('name')
+                                                    <p class="text-danger mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Selecione as diretrizes</label>
-                                                <select name="directive_id[]" class="form-select form-select-lg" multiple>
+                                                <select name="directive_id[]" class="form-select form-select-lg" multiple required>
                                                     @foreach ($directives as $directive)
-                                                        <option value="{{ $directive->id }}" {{ ($directive->id == (old('directive_id') ?? $directive_id)) ? 'selected' : '' }}>{{ $directive->name }}</option>
+                                                    <option value="{{ $directive->id }}" {{ ($directive->id == (old('directive_id') ?? $directive_id)) ? 'selected' : '' }}>{{ $directive->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('directive_id')
