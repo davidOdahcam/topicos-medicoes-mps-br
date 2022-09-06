@@ -28,11 +28,15 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Nome do projeto</label>
                                                 <select name="project_id" class="form-select form-select-lg">
                                                     <option value="">Selecione um projeto</option>
+                                                    @foreach ($projects as $project)
+                                                        <option value="{{ $project->id }}" {{ ($project->id == (old('project_id') ?? $project_id)) ? 'selected' : '' }}>{{ $project->name }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('project_id')
                                                     <p class="text-danger mt-1">{{ $message }}</p>

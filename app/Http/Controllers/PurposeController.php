@@ -26,10 +26,11 @@ class PurposeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('pages.purposes.create', [
-            'projects' => Project::select(['id', 'name'])->get()
+            'project_id' => $request->query('project_id'),
+            'projects'   => Project::select(['id', 'name'])->get()
         ]);
     }
 
@@ -41,9 +42,13 @@ class PurposeController extends Controller
      */
     public function store(PurposeRequest $request)
     {
-        Purpose::create($request->validated());
+        $purpose = Purpose::create($request->validated());
 
-        return redirect()->route('purposes.index');
+        if ($request->input('submit_type') === 'next') {
+            return redirect()->route('directives.create', ['purpose_id' => $purpose->id]);
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -57,7 +62,7 @@ class PurposeController extends Controller
     {
         $purpose->update($request->validated());
 
-        return redirect()->route('purposes.index');
+        return back();
     }
 
     /**
@@ -70,6 +75,6 @@ class PurposeController extends Controller
     {
         $purpose->delete();
 
-        return redirect()->route('purposes.index');
+        return back();
     }
 }

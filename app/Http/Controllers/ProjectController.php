@@ -40,9 +40,13 @@ class ProjectController extends Controller
     {
         $project = new Project($request->validated());
         $project->user()->associate(auth()->user());
-        $project->create();
+        $project->save();
 
-        return redirect()->route('projects.index');
+        if ($request->input('submit_type') === 'next') {
+            return redirect()->route('purposes.create', ['project_id' => $project->id]);
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -56,7 +60,7 @@ class ProjectController extends Controller
     {
         $project->update($request->validated());
 
-        return redirect()->route('projects.index');
+        return back();
     }
 
     /**
@@ -69,6 +73,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route('projects.index');
+        return back();
     }
 }
