@@ -15,8 +15,27 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+        $request->validate([
+            'filter_name' => 'nullable|string|max:191',
+            'filter_from' => 'nullable|date_format:Y-m-d',
+        ]);
+
+        $projects = Project::where('user_id', auth()->id());
+
+        if($filter_name = $request->query('filter_name')) {
+            $projects->where('name', 'like', "%{$filter_name}%");
+        }
+
+        if($filter_from = $request->query('filter_from')) {
+            $projects->where('created_at', '>=', "{$filter_from} 00:00:00");
+        }
+
+        if($filter_to = $request->query('filter_to')) {
+            $projects->where('created_at', '<=', "{$filter_to} 23:59:59");
+        }
+
         return view('pages.projects.index', [
-            'projects' => Project::where('user_id', auth()->id())->paginate()
+            'projects' => $projects->paginate()
         ]);
     }
 

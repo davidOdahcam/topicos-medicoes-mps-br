@@ -14,10 +14,29 @@ class ObjectiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->validate([
+            'filter_name' => 'nullable|string|max:191',
+            'filter_from' => 'nullable|date_format:Y-m-d',
+        ]);
+
+        $objectives = Objective::query();
+
+        if($filter_name = $request->query('filter_name')) {
+            $objectives->where('name', 'like', "%{$filter_name}%");
+        }
+
+        if($filter_from = $request->query('filter_from')) {
+            $objectives->where('created_at', '>=', "{$filter_from} 00:00:00");
+        }
+
+        if($filter_to = $request->query('filter_to')) {
+            $objectives->where('created_at', '<=', "{$filter_to} 23:59:59");
+        }
+
         return view('pages.objectives.index', [
-            'objectives' => Objective::paginate()
+            'objectives' => $objectives->paginate()
         ]);
     }
 
