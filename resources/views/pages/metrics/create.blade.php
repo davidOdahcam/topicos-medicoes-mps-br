@@ -9,8 +9,9 @@
         <div class="container-fluid p-0">
             <div class="container d-flex justify-content-center flex-column">
                 <div class="d-flex justify-content-center flex-column">
-                    <div class="text-center mt-4">
+                    <div class="d-flex justify-content-between align-items-center mt-4">
                         <h1 class="h2 mb-3">Cadastro de Métricas</h1>
+                        <a href="{{route('metrics.index')}}" class="btn btn-primary">Listagem</a>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -18,6 +19,17 @@
                                 <form action="{{ route('metrics.store') }}" method="POST">
                                     @csrf
                                     <div class="row">
+                                        
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Termo</label>
+                                                <input class="form-control form-control-lg" type="text" name="term"
+                                                    placeholder="Termo" required value="{{ old('term') }}" />
+                                                @error('term')
+                                                    <p class="text-danger mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Objetivo</label>
@@ -30,16 +42,6 @@
                                                     @endforeach
                                                 </select>
                                                 @error('objective_id')
-                                                    <p class="text-danger mt-1">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Termo</label>
-                                                <input class="form-control form-control-lg" type="text" name="term"
-                                                    placeholder="Termo" required value="{{ old('term') }}" />
-                                                @error('term')
                                                     <p class="text-danger mt-1">{{ $message }}</p>
                                                 @enderror
                                             </div>

@@ -9,8 +9,9 @@
         <div class="container-fluid p-0">
             <div class="container d-flex justify-content-center flex-column">
                 <div class="d-flex justify-content-center flex-column">
-                    <div class="text-center mt-4">
+                    <div class="d-flex justify-content-between align-items-center mt-4">
                         <h1 class="h2 mb-3">Cadastro de Propósito</h1>
+                        <a href="{{route('purposes.index')}}" class="btn btn-primary">Listagem</a>
                     </div>
                     <div class="card">
                         <div class="card-body">
