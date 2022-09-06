@@ -15,53 +15,36 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="m-sm-4">
-                                <form>
+                                <form action="{{ route('directives.store') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Campo genérico</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Campo genérico" />
+                                                <label class="form-label">Nome</label>
+                                                <input class="form-control form-control-lg" type="text" name="name" placeholder="Nome" />
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Campo genérico</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Campo genérico" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Campo genérico</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Campo genérico" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Campo genérico</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Campo genérico" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Campo genérico</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Campo genérico" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">Campo genérico</label>
-                                                <input class="form-control form-control-lg" type="text" name="name"
-                                                    placeholder="Campo genérico" />
+                                                <label class="form-label">Selecione o propósito</label>
+                                                <select name="purpose_id" class="form-select form-select-lg">
+                                                    <option value="">Selecione um propósito</option>
+                                                    @foreach ($purposes as $purpose)
+                                                        <option value="{{ $purpose->id }}" {{ ($purpose->id == (old('purpose_id') ?? $purpose_id)) ? 'selected' : '' }}>{{ $purpose->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('purpose_id')
+                                                    <p class="text-danger mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="text-end mt-3">
-                                        <a href="index.html" class="btn btn-lg btn-primary">Cadastrar</a>
+                                        <button name="submit_type" value="return"
+                                            class="btn btn-lg btn-primary">Cadastrar</button>
+                                        <button name="submit_type" value="next" class="btn btn-lg btn-primary">Cadastrar e
+                                            avançar</button>
                                     </div>
                                 </form>
                             </div>

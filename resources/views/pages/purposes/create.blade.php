@@ -31,7 +31,7 @@
 
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Nome do projeto</label>
+                                                <label class="form-label">Selecione o projeto</label>
                                                 <select name="project_id" class="form-select form-select-lg">
                                                     <option value="">Selecione um projeto</option>
                                                     @foreach ($projects as $project)

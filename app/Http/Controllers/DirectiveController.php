@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DirectiveRequest;
 use App\Models\Directive;
+use App\Models\Purpose;
 use Illuminate\Http\Request;
 
 class DirectiveController extends Controller
@@ -25,9 +26,12 @@ class DirectiveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('pages.directives.create');
+        return view('pages.directives.create', [
+            'purpose_id' => $request->query('purpose_id'),
+            'purposes'   => Purpose::select(['id', 'name'])->get()
+        ]);
     }
 
     /**
@@ -38,9 +42,13 @@ class DirectiveController extends Controller
      */
     public function store(DirectiveRequest $request)
     {
-        Directive::create($request->validated());
+        $directive = Directive::create($request->validated());
 
-        return redirect()->route('directives.index');
+        if ($request->input('submit_type') === 'next') {
+            return redirect()->route('objectives.create', ['directive_id' => $directive->id]);
+        } else {
+            return back();
+        }
     }
 
     /**
