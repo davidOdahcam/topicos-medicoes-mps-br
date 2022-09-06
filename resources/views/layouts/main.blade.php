@@ -21,7 +21,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <style>
         .sidebar [data-bs-toggle=collapse]:after {
             border: solid;
@@ -55,6 +57,18 @@
             background: #222e3c;
             color: #fff;
             border: 0px;
+        }
+        .toast-error{
+            background-color:#BD362F !important;
+        }
+        .toast-success{
+            background-color:#51A351 !important;
+        }
+        .toast-info{
+            background-color:#2F96B4 !important;
+        }
+        .toast-warning{
+            background-color:#F89406 !important;
         }
     </style>
 </head>
@@ -161,14 +175,15 @@
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
-                <a class="sidebar-toggle js-sidebar-toggle">
+                <a class="sidebar-toggle js-sidebar-toggle ms-3">
                     <i class="hamburger align-self-center"></i>
                 </a>
 
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
                         <li class="nav-item dropdown">
-                            <a class="nav-icon dropdown-toggle" href="#" onclick="document.getElementById('logout-form').submit()" id="messagesDropdown"
+                            <a class="nav-icon dropdown-toggle" href="#"
+                                onclick="document.getElementById('logout-form').submit()" id="messagesDropdown"
                                 data-bs-toggle="dropdown">
                                 <div class="position-relative">
                                     <i class="align-middle" data-feather="log-out"></i>
@@ -185,6 +200,7 @@
             @yield('content')
 
 
+
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row text-muted">
@@ -198,24 +214,18 @@
             </footer>
         </div>
     </div>
+    @stack('modal')
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/translateTable.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+    </script>
     <script>
-        $(function() {
-            //se #myTable existir
-            if ($('#myTable').length) {
-                $('#myTable').DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json"
-                    }
-                });
-            }
-        });
-
         @if (session('success'))
             toastr.success("{{ session('success') }}")
         @endif
@@ -229,6 +239,8 @@
             toastr.warning("{{ session('warning') }}")
         @endif
     </script>
+
+    @stack('js')
 </body>
 
 </html>

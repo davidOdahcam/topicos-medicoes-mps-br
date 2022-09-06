@@ -14,102 +14,57 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <div class="m-sm-4 table-responsive">
+                            <form action="" method="POST">
+                                @csrf
+                                <div class="row mb-4">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Nome do projeto</label>
+                                        <input class="form-control" type="text" name="filter_name"
+                                            placeholder="Nome do projeto" value="{{ old('filter_name') }}" required
+                                            maxlength="191" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Data ínicio</label>
+                                        <input class="form-control" type="date" name="filter_from" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Data fim</label>
+                                        <input class="form-control" type="date" name="filter_to" />
+                                    </div>
+                                    <div class="col-md-3 d-flex">
+                                        <button class="btn btn-primary mt-auto">Filtrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="table-responsive">
                                 <table id="myTable" class="table table-responsive">
                                     <thead>
                                         <tr>
-                                            <th>Campo genérico</th>
-                                            <th>Campo genérico</th>
-                                            <th>Campo genérico</th>
-                                            <th>Campo genérico</th>
+                                            <th>Nome</th>
+                                            <th>Criado em</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @foreach ($projects as $project)
+                                            <tr>
+                                                <td>{{ $project->name }}</td>
+                                                <td>{{ $project->created_at->format('d/m/Y') }}</td>
+                                                <td width="180px" data-name="{{ $project->name }}" data-id="{{ $project->id }}">
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-success btn-modal-view">
+                                                            <i class="fa-regular fa-eye"></i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-modal-edit">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-modal-delete">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
 
                                 </table>
@@ -121,3 +76,119 @@
         </div>
     </main>
 @endsection
+
+@push('modal')
+    <!-- View Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewModalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editModalForm" action="" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Nome do projeto</label>
+                                    <input class="form-control" type="text" name="name" placeholder="Nome do projeto"
+                                        required maxlength="191" />
+                                    @error('name')
+                                        <p class="text-danger mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" form="editModalForm" class="btn btn-primary">Atualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalTitle">Remover</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="deleteModalForm" action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    <p>Tem certeza que deseja remover o projeto <strong id="projectDeleteModalName"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button class="btn btn-danger" form="deleteModalForm">Remover</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endpush
+
+@push('js')
+    <script>
+        $(function() {
+            $('.btn-modal-view').on('click', function() {
+                const id = $(this).closest('td').data('id');
+                $('#viewModal').find('.modal-body').html(id);
+                $('#viewModal').modal('show');
+                // $.ajax({
+                //     url: '/projects/' + id,
+                //     type: 'GET',
+                //     success: function(data){
+                //         $('#modal-view').find('.modal-body').html(data);
+                //         $('#modal-view').modal('show');
+                //     }
+                // });
+            });
+
+            $('.btn-modal-edit').on('click', function() {
+                const id = $(this).closest('td').data('id');
+                const name = $(this).closest('td').attr('data-name');
+                const action = "{{ route('projects.update', '_id') }}";
+                $('#editModal').find('form').attr('action', action.replace('_id', id));
+                $('#editModalTitle').html('Editar projeto ' + name);
+                $('#editModal').find('input[name="name"]').val(name);
+                $('#editModal').modal('show');
+            });
+
+            $('.btn-modal-delete').on('click', function() {
+                const id = $(this).closest('td').attr('data-id');
+                const name = $(this).closest('td').attr('data-name');
+                const action = "{{ route('projects.destroy', '_id') }}";
+                $('#deleteModal').find('form').attr('action', action.replace('_id', id));
+                $('#projectDeleteModalName').html(name);
+                $('#deleteModal').modal('show');
+            });
+        });
+    </script>
+@endpush
