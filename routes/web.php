@@ -31,27 +31,27 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('projetos', ProjectController::class)
         ->except(['show', 'edit'])
         ->names('projects')
-        ->scoped(['project' => 'id']);
+        ->parameters(['projetos' => 'project:id']);
 
     Route::resource('propositos', PurposeController::class)
         ->except(['show', 'edit'])
         ->names('purposes')
-        ->scoped(['purpose' => 'id']);
+        ->parameters(['propositos' => 'purpose:id']);
 
     Route::resource('diretrizes', DirectiveController::class)
         ->except(['show', 'edit'])
         ->names('directives')
-        ->scoped(['directive' => 'id']);
+        ->parameters(['diretrizes' => 'directive:id']);
 
     Route::resource('objetivos', ObjectiveController::class)
         ->except(['show', 'edit'])
         ->names('objectives')
-        ->scoped(['objective' => 'id']);
+        ->parameters(['objetivos' => 'objective:id']);
 
     Route::resource('metricas', MetricController::class)
         ->except(['show', 'edit'])
         ->names('metrics')
-        ->scoped(['metric' => 'id']);
+        ->parameters(['metricas' => 'metric:id']);
 });
 
 require __DIR__.'/auth.php';
