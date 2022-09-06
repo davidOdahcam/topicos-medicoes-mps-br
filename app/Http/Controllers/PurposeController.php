@@ -19,6 +19,7 @@ class PurposeController extends Controller
         $request->validate([
             'filter_name' => 'nullable|string|max:191',
             'filter_from' => 'nullable|date_format:Y-m-d',
+            'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
         $purposes = Purpose::query();
@@ -36,7 +37,10 @@ class PurposeController extends Controller
         }
 
         return view('pages.purposes.index', [
-            'purposes' => $purposes->paginate()
+            'purposes' => $purposes->paginate(),
+            'filter_name' => $filter_name,
+            'filter_from' => $filter_from,
+            'filter_to' => $filter_to
         ]);
     }
 

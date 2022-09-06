@@ -18,6 +18,7 @@ class ProjectController extends Controller
         $request->validate([
             'filter_name' => 'nullable|string|max:191',
             'filter_from' => 'nullable|date_format:Y-m-d',
+            'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
         $projects = Project::where('user_id', auth()->id());
@@ -35,7 +36,10 @@ class ProjectController extends Controller
         }
 
         return view('pages.projects.index', [
-            'projects' => $projects->paginate()
+            'projects' => $projects->paginate(),
+            'filter_name' => $filter_name,
+            'filter_from' => $filter_from,
+            'filter_to' => $filter_to
         ]);
     }
 

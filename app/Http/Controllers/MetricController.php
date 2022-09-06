@@ -19,6 +19,7 @@ class MetricController extends Controller
         $request->validate([
             'filter_name' => 'nullable|string|max:191',
             'filter_from' => 'nullable|date_format:Y-m-d',
+            'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
         $metrics = Metric::query();
@@ -36,7 +37,10 @@ class MetricController extends Controller
         }
 
         return view('pages.metrics.index', [
-            'metrics' => $metrics->paginate()
+            'metrics' => $metrics->paginate(),
+            'filter_name' => $filter_name,
+            'filter_from' => $filter_from,
+            'filter_to' => $filter_to
         ]);
     }
 

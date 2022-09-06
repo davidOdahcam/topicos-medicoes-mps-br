@@ -19,6 +19,7 @@ class DirectiveController extends Controller
         $request->validate([
             'filter_name' => 'nullable|string|max:191',
             'filter_from' => 'nullable|date_format:Y-m-d',
+            'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
         $directives = Directive::query();
@@ -36,7 +37,10 @@ class DirectiveController extends Controller
         }
 
         return view('pages.directives.index', [
-            'directives' => $directives->paginate()
+            'directives' => $directives->paginate(),
+            'filter_name' => $filter_name,
+            'filter_from' => $filter_from,
+            'filter_to' => $filter_to
         ]);
     }
 

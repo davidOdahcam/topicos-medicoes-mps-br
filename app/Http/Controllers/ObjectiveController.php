@@ -19,6 +19,7 @@ class ObjectiveController extends Controller
         $request->validate([
             'filter_name' => 'nullable|string|max:191',
             'filter_from' => 'nullable|date_format:Y-m-d',
+            'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
         $objectives = Objective::query();
@@ -36,7 +37,10 @@ class ObjectiveController extends Controller
         }
 
         return view('pages.objectives.index', [
-            'objectives' => $objectives->paginate()
+            'objectives' => $objectives->paginate(),
+            'filter_name' => $filter_name,
+            'filter_from' => $filter_from,
+            'filter_to' => $filter_to
         ]);
     }
 
