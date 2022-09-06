@@ -30,7 +30,7 @@ class ObjectiveRequest extends FormRequest
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return [
             'required' => 'Este campo é obrigatório',
