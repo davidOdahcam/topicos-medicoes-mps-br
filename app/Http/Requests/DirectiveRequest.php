@@ -24,7 +24,8 @@ class DirectiveRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:191'
+            'name'       => 'required|string|max:191',
+            'purpose_id' => 'required|exists:purposes,id'
         ];
     }
 
