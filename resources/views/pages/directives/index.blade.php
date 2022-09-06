@@ -14,6 +14,27 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
+                            <form>
+                                <div class="row mb-4">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Diretriz</label>
+                                        <input class="form-control" type="text" name="filter_name"
+                                            placeholder="Diretriz"
+                                            value="{{ $filter_name ?? '' }}" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Data ínicio</label>
+                                        <input class="form-control" type="date" name="filter_from" value="{{ $filter_from ?? '' }}" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">Data fim</label>
+                                        <input class="form-control" type="date" name="filter_to" value="{{ $filter_to ?? '' }}" />
+                                    </div>
+                                    <div class="col-md-2 d-flex">
+                                        <button class="btn btn-primary mt-auto">Filtrar</button>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="m-sm-4 table-responsive">
                                 <table id="myTable" class="table table-responsive">
                                     <thead>
