@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ObjectiveRequest;
 use App\Models\Directive;
 use App\Models\Objective;
 use Illuminate\Http\Request;
+use App\Http\Requests\ObjectiveRequest;
 
 class ObjectiveController extends Controller
 {
@@ -45,6 +45,8 @@ class ObjectiveController extends Controller
         $objective = Objective::create($request->validated());
         $objective->directives()->attach($request->input('directive_id'));
 
+        session()->flash('success', 'Objetivo cadastrado com sucesso');
+
         if ($request->input('submit_type') === 'next') {
             return redirect()->route('metrics.create', ['objective_id' => $objective->id]);
         } else {
@@ -61,7 +63,9 @@ class ObjectiveController extends Controller
      */
     public function update(ObjectiveRequest $request, Objective $objective)
     {
-        //
+        $objective->update($request->validated());
+
+        return redirect()->route('objectives.index')->with('success', 'Objetivo atualizado com sucesso');
     }
 
     /**
@@ -72,6 +76,8 @@ class ObjectiveController extends Controller
      */
     public function destroy(Objective $objective)
     {
-        //
+        $objective->delete()
+
+        return redirect()->route('objectives.index')->with('success', 'Objetivo removido com sucesso');
     }
 }

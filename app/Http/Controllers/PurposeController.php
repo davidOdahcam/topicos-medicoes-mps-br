@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PurposeRequest;
 use App\Models\Project;
 use App\Models\Purpose;
 use Illuminate\Http\Request;
+use App\Http\Requests\PurposeRequest;
 
 class PurposeController extends Controller
 {
@@ -44,6 +44,8 @@ class PurposeController extends Controller
     {
         $purpose = Purpose::create($request->validated());
 
+        session()->flash('success', 'Propósito cadastrado com sucesso');
+
         if ($request->input('submit_type') === 'next') {
             return redirect()->route('directives.create', ['purpose_id' => $purpose->id]);
         } else {
@@ -62,7 +64,7 @@ class PurposeController extends Controller
     {
         $purpose->update($request->validated());
 
-        return back();
+        return back()->with('success', 'Propósito atualizado com sucesso');
     }
 
     /**
@@ -75,6 +77,6 @@ class PurposeController extends Controller
     {
         $purpose->delete();
 
-        return back();
+        return back()->with('success', 'Propósito removido com sucesso');
     }
 }

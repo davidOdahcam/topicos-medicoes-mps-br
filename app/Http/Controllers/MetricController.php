@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MetricRequest;
 use App\Models\Metric;
 use App\Models\Objective;
 use Illuminate\Http\Request;
+use App\Http\Requests\MetricRequest;
 
 class MetricController extends Controller
 {
@@ -46,7 +46,7 @@ class MetricController extends Controller
         $metric = Metric::create($request->validated());
         $metric->objectives()->attach($request->input('objective_id'));
 
-        return redirect()->route('metrics.index');
+        return redirect()->route('metrics.index')->with('success', 'Métrica cadastrada com sucesso');
     }
 
     /**
@@ -60,7 +60,7 @@ class MetricController extends Controller
     {
         $metric->update($request->validated());
 
-        return redirect()->route('metrics.index');
+        return redirect()->route('metrics.index')->with('success', 'Métrica atualizada com sucesso');
     }
 
     /**
@@ -73,6 +73,6 @@ class MetricController extends Controller
     {
         $metric->delete();
 
-        return redirect()->route('metrics.index');
+        return redirect()->route('metrics.index')->with('success', 'Métrica removida com sucesso');
     }
 }

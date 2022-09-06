@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DirectiveRequest;
-use App\Models\Directive;
 use App\Models\Purpose;
+use App\Models\Directive;
 use Illuminate\Http\Request;
+use App\Http\Requests\DirectiveRequest;
 
 class DirectiveController extends Controller
 {
@@ -44,6 +44,8 @@ class DirectiveController extends Controller
     {
         $directive = Directive::create($request->validated());
 
+        session()->flash('success', 'Diretriz cadastrada com sucesso!');
+
         if ($request->input('submit_type') === 'next') {
             return redirect()->route('objectives.create', ['directive_id' => $directive->id]);
         } else {
@@ -62,7 +64,7 @@ class DirectiveController extends Controller
     {
         $directive->update($request->validated());
 
-        return redirect()->route('directives.index');
+        return redirect()->route('directives.index')->with('success', 'Diretriz atualizada com sucesso!');
     }
 
     /**
@@ -75,6 +77,6 @@ class DirectiveController extends Controller
     {
         $directive->delete();
 
-        return redirect()->route('directives.index');
+        return redirect()->route('directives.index')->with('success', 'Diretriz removida com sucesso!');
     }
 }

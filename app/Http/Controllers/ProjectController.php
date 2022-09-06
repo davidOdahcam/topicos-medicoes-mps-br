@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -42,6 +42,8 @@ class ProjectController extends Controller
         $project->user()->associate(auth()->user());
         $project->save();
 
+        session()->flash('success', 'Projeto cadastrado com sucesso');
+
         if ($request->input('submit_type') === 'next') {
             return redirect()->route('purposes.create', ['project_id' => $project->id]);
         } else {
@@ -60,7 +62,7 @@ class ProjectController extends Controller
     {
         $project->update($request->validated());
 
-        return back();
+        return back()->with('success', 'Projeto atualizado com sucesso');
     }
 
     /**
@@ -73,6 +75,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return back();
+        return back()->with('success', 'Projeto removido com sucesso');
     }
 }
