@@ -99,7 +99,7 @@ class ObjectiveController extends Controller
      */
     public function destroy(Objective $objective)
     {
-        $objective->delete()
+        $objective->delete();
 
         return redirect()->route('objectives.index')->with('success', 'Objetivo removido com sucesso');
     }

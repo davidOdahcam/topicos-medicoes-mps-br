@@ -18,103 +18,44 @@
                                 <table id="myTable" class="table table-responsive">
                                     <thead>
                                         <tr>
-                                            <th>Campo genérico</th>
-                                            <th>Campo genérico</th>
-                                            <th>Campo genérico</th>
-                                            <th>Campo genérico</th>
+                                            <th>Nome</th>
+                                            <th>Criado em</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-info"><i
-                                                            class="fa-solid fa-pen-to-square"></i></button>
-                                                    <button class="btn btn-danger"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @forelse ($directives as $directive)
+                                            <tr>
+                                                <td>{{ $directive->name }}</td>
+                                                <td>{{ $directive->created_at->format('d/m/Y') }}</td>
+                                                <td width="180px" data-name="{{ $directive->name }}" data-id="{{ $directive->id }}">
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-success btn-modal-view">
+                                                            <i class="fa-regular fa-eye"></i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-modal-edit">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-modal-delete">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr colspan="3">
+                                                <td>Nenhum resultado encontrado</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
+                        @if ($directives->hasPages())
+                            <div class="card-footer">
+                                {{ $directives->appends(request()->input())->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

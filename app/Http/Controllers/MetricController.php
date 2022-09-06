@@ -17,15 +17,15 @@ class MetricController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'filter_name' => 'nullable|string|max:191',
+            'filter_term' => 'nullable|string|max:191',
             'filter_from' => 'nullable|date_format:Y-m-d',
             'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
         $metrics = Metric::query();
 
-        if($filter_name = $request->query('filter_name')) {
-            $metrics->where('name', 'like', "%{$filter_name}%");
+        if($filter_term = $request->query('filter_term')) {
+            $metrics->where('term', 'like', "%{$filter_term}%");
         }
 
         if($filter_from = $request->query('filter_from')) {
@@ -37,10 +37,10 @@ class MetricController extends Controller
         }
 
         return view('pages.metrics.index', [
-            'metrics' => $metrics->paginate(),
-            'filter_name' => $filter_name,
+            'metrics'     => $metrics->paginate(),
+            'filter_term' => $filter_term,
             'filter_from' => $filter_from,
-            'filter_to' => $filter_to
+            'filter_to'   => $filter_to
         ]);
     }
 

@@ -14,8 +14,7 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <form action="" method="POST">
-                                @csrf
+                            <form>
                                 <div class="row mb-4">
                                     <div class="col-md-3">
                                         <label class="form-label">Nome do projeto</label>
@@ -46,7 +45,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($projects as $project)
+                                        @forelse ($projects as $project)
                                             <tr>
                                                 <td>{{ $project->name }}</td>
                                                 <td>{{ $project->created_at->format('d/m/Y') }}</td>
@@ -64,12 +63,20 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr colspan="3">
+                                                <td>Nenhum resultado encontrado</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
+                        @if ($projects->hasPages())
+                            <div class="card-footer">
+                                {{ $projects->appends(request()->input())->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

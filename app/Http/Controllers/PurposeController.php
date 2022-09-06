@@ -24,6 +24,10 @@ class PurposeController extends Controller
 
         $purposes = Purpose::query();
 
+        if($filter_project_id = $request->query('filter_project_id')) {
+            $purposes->where('project_id', $filter_project_id);
+        }
+
         if($filter_name = $request->query('filter_name')) {
             $purposes->where('name', 'like', "%{$filter_name}%");
         }
@@ -37,10 +41,12 @@ class PurposeController extends Controller
         }
 
         return view('pages.purposes.index', [
-            'purposes' => $purposes->paginate(),
-            'filter_name' => $filter_name,
-            'filter_from' => $filter_from,
-            'filter_to' => $filter_to
+            'projects'          => Project::select(['id', 'name'])->get(),
+            'filter_project_id' => $filter_project_id,
+            'filter_name'       => $filter_name,
+            'filter_from'       => $filter_from,
+            'filter_to'         => $filter_to,
+            'purposes'          => $purposes->paginate()
         ]);
     }
 
