@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('metrics/{metric:id}', [MetricController::class, 'show'])->name('metrics.show');
+Route::apiResource('metrics', MetricController::class)->only(['index', 'show'])->names('metrics');
