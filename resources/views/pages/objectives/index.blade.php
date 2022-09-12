@@ -95,7 +95,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Nome do objetivo</label>
+                            <input class="form-control" type="text" name="name" placeholder="Nome do objetivo" readonly maxlength="191" />
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -177,16 +182,15 @@
         $(function() {
             $('.btn-modal-view').on('click', function() {
                 const id = $(this).closest('td').data('id');
-                $('#viewModal').find('.modal-body').html(id);
-                $('#viewModal').modal('show');
-                // $.ajax({
-                //     url: '/projects/' + id,
-                //     type: 'GET',
-                //     success: function(data){
-                //         $('#modal-view').find('.modal-body').html(data);
-                //         $('#modal-view').modal('show');
-                //     }
-                // });
+                $('#viewModalTitle').html('Visualizar objetivo');
+                $.ajax({
+                    url: '/api/objectives/' + id,
+                    type: 'GET',
+                    success: function(data){
+                        $('input[name="name"]').val(data.data.name);
+                        $('#viewModal').modal('show');
+                    }
+                });
             });
 
             $('.btn-modal-edit').on('click', function() {
@@ -196,6 +200,17 @@
                 $('#editModal').find('form').attr('action', action.replace('_id', id));
                 $('#editModalTitle').html('Editar objetivo ' + name);
                 $('#editModal').find('input[name="name"]').val(name);
+                $('#editModal').find('select[name="directive_id[]"]').html('');
+                $.ajax({
+                    url: '/api/directives/',
+                    type: 'GET',
+                    success: function(data){
+                        data.data.forEach(element => {
+                            $('#editModal').find('select[name="directive_id[]"]').append('<option value="' + element.id + '">' + element.name + '</option>');
+                        });
+                        $('#editModal').modal('show');
+                    }
+                });
                 $('#editModal').modal('show');
             });
 

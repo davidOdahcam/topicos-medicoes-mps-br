@@ -42,15 +42,10 @@
                                     <thead>
                                         <tr>
                                             <th>Termo</th>
-                                            <th>Noção</th>
-                                            <th>Impacto</th>
-                                            <th>Sinônimo</th>
                                             <th>Fonte</th>
                                             <th>Tipo</th>
                                             <th>Formato</th>
                                             <th>Indicador</th>
-                                            <th>Como calcular</th>
-                                            <th>Como analisar</th>
                                             <th>Criado em</th>
                                             <th>Ações</th>
                                         </tr>
@@ -59,17 +54,12 @@
                                         @forelse ($metrics as $metric)
                                             <tr>
                                                 <td>{{ $metric->term }}</td>
-                                                <td>{{ $metric->notion }}</td>
-                                                <td>{{ $metric->impact }}</td>
-                                                <td>{{ optional($metric->synonymin)->term ?? 'Não informado' }}</td>
                                                 <td>{{ $metric->source }}</td>
                                                 <td>{{ $metric->type }}</td>
                                                 <td>{{ $metric->format }}</td>
                                                 <td>{{ $metric->indicator_type }}</td>
-                                                <td>{{ $metric->how_to_calculate }}</td>
-                                                <td>{{ $metric->how_to_analyze }}</td>
                                                 <td>{{ $metric->created_at->format('d/m/Y') }}</td>
-                                                <td width="180px" data-name="{{ $metric->term }}"
+                                                <td width="180px" data-term="{{ $metric->term }}"
                                                     data-id="{{ $metric->id }}">
                                                     <div class="btn-group">
                                                         <button class="btn btn-success btn-modal-view">
@@ -112,11 +102,91 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewModalTitle">Modal title</h5>
+                    <h5 class="modal-title" id="viewModalTitle"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
 
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Termo</label>
+                                <input class="form-control" type="text" name="modal_view_term" placeholder="Termo"
+                                    readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Objetivo</label>
+                                <input class="form-control" type="text" name="modal_view_objective_id"
+                                    placeholder="Objetivo" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Noção</label>
+                                <input class="form-control" type="text" name="modal_view_notion" placeholder="Noção"
+                                    readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Impacto</label>
+                                <input class="form-control" type="text" name="modal_view_impact" placeholder="Impacto"
+                                    readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Sinônimo</label>
+                                <input class="form-control" type="text" name="modal_view_synonymous"
+                                    placeholder="Sinônimo" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Fonte</label>
+                                <input class="form-control" type="text" name="modal_view_source" placeholder="Fonte"
+                                    readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Tipo</label>
+                                <input class="form-control" type="text" name="modal_view_type" placeholder="Tipo"
+                                    readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Formato</label>
+                                <input class="form-control" type="text" name="modal_view_format"
+                                    placeholder="Formato" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Indicador</label>
+                                <input class="form-control" type="text" name="modal_view_indicator_type" readonly
+                                    value="{{ old('indicator_type') }}" placeholder="Indicador" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Como calcular</label>
+                                <input class="form-control" type="text" name="modal_view_how_to_calculate" readonly
+                                    value="" placeholder="Como calcular" />
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Como analisar</label>
+                                <input class="form-control" type="text" name="modal_view_how_to_analyze" readonly
+                                    value="" placeholder="Como analisar" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -138,12 +208,12 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            
+
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Termo</label>
-                                    <input class="form-control" type="text" name="term"
-                                        placeholder="Termo" required value="{{ old('term') }}" />
+                                    <input class="form-control" type="text" name="term" placeholder="Termo"
+                                        required value="{{ old('term') }}" />
                                     @error('term')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -163,8 +233,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Noção</label>
-                                    <input class="form-control" type="text" name="notion"
-                                        placeholder="Noção" required value="{{ old('notion') }}" />
+                                    <input class="form-control" type="text" name="notion" placeholder="Noção"
+                                        required value="{{ old('notion') }}" />
                                     @error('notion')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -173,8 +243,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Impacto</label>
-                                    <input class="form-control" type="text" name="impact"
-                                        placeholder="Impacto" required value="{{ old('impact') }}" />
+                                    <input class="form-control" type="text" name="impact" placeholder="Impacto"
+                                        required value="{{ old('impact') }}" />
                                     @error('impact')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -194,8 +264,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Fonte</label>
-                                    <input class="form-control" type="text" name="source"
-                                        placeholder="Fonte" required value="{{ old('source') }}" />
+                                    <input class="form-control" type="text" name="source" placeholder="Fonte"
+                                        required value="{{ old('source') }}" />
                                     @error('source')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -204,8 +274,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Tipo</label>
-                                    <input class="form-control" type="text" name="type"
-                                        placeholder="Tipo" required value="{{ old('type') }}" />
+                                    <input class="form-control" type="text" name="type" placeholder="Tipo"
+                                        required value="{{ old('type') }}" />
                                     @error('type')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -214,8 +284,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Formato</label>
-                                    <input class="form-control" type="text" name="format"
-                                        placeholder="Formato" required value="{{ old('format') }}" />
+                                    <input class="form-control" type="text" name="format" placeholder="Formato"
+                                        required value="{{ old('format') }}" />
                                     @error('format')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -224,8 +294,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Indicador</label>
-                                    <input class="form-control" type="text" name="indicator_type"
-                                        required value="{{ old('indicator_type') }}" placeholder="Indicador" />
+                                    <input class="form-control" type="text" name="indicator_type" required
+                                        value="{{ old('indicator_type') }}" placeholder="Indicador" />
                                     @error('indicator_type')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -234,8 +304,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Como calcular</label>
-                                    <input class="form-control" type="text" name="how_to_calculate"
-                                        required value="{{ old('how_to_calculate') }}" placeholder="Como calcular" />
+                                    <input class="form-control" type="text" name="how_to_calculate" required
+                                        value="{{ old('how_to_calculate') }}" placeholder="Como calcular" />
                                     @error('how_to_calculate')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -244,8 +314,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Como analisar</label>
-                                    <input class="form-control" type="text" name="how_to_analyze"
-                                        required value="{{ old('how_to_analyze') }}" placeholder="Como analisar" />
+                                    <input class="form-control" type="text" name="how_to_analyze" required
+                                        value="{{ old('how_to_analyze') }}" placeholder="Como analisar" />
                                     @error('how_to_analyze')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -291,16 +361,18 @@
         $(function() {
             $('.btn-modal-view').on('click', function() {
                 const id = $(this).closest('td').data('id');
-                $('#viewModal').find('.modal-body').html(id);
+                const term = $(this).closest('td').data('term');
+                $('#viewModalTitle').html(term);
                 $('#viewModal').modal('show');
-                // $.ajax({
-                //     url: '/metrics/' + id,
-                //     type: 'GET',
-                //     success: function(data){
-                //         $('#modal-view').find('.modal-body').html(data);
-                //         $('#modal-view').modal('show');
-                //     }
-                // });
+                $.ajax({
+                    url: '/api/metrics/' + id,
+                    type: 'GET',
+                    success: function(data) {
+                        Object.keys(data.data).forEach((item) => {
+                            $(`input[name=modal_view_${item}]`).val(data.data[item]);
+                        });
+                    }
+                });
             });
 
             $('.btn-modal-edit').on('click', function() {
@@ -309,8 +381,27 @@
                 const action = "{{ route('metrics.update', '_id') }}";
                 $('#editModal').find('form').attr('action', action.replace('_id', id));
                 $('#editModalTitle').html('Editar métrica ' + name);
-                $('#editModal').find('input[name="name"]').val(name);
                 $('#editModal').modal('show');
+                $.ajax({
+                    url: '/api/metrics/' + id,
+                    type: 'GET',
+                    success: function(data) {
+                        Object.keys(data.data).forEach((item) => {
+                            $(`input[name=${item}]`).val(data.data[item]);
+                        });
+                    }
+                });
+                $.ajax({
+                    url: '/api/objectives',
+                    type: 'GET',
+                    success: function(data) {
+                        const select = $('#editModal').find('select[name=objective_id]');
+                        select.html('');
+                        data.data.forEach((item) => {
+                            select.append(`<option value="${item.id}">${item.name}</option>`);
+                        });
+                    }
+                })
             });
 
             $('.btn-modal-delete').on('click', function() {
