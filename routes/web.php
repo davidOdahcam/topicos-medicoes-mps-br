@@ -21,7 +21,7 @@ use App\Http\Controllers\{
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('pages.directives.index');
+        return redirect()->route('directives.index');
     });
 
     Route::get('/dashboard', function () {
