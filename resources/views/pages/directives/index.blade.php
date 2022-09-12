@@ -63,7 +63,7 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                                
+
                                             </tr>
                                         @empty
                                             <tr colspan="3">
