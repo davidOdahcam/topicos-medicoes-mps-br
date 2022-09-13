@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-center flex-column">
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <h1 class="h2 mb-3">Listagem de Diretrizes</h1>
-                        <a href="{{route('directives.create')}}" class="btn btn-primary">Adicionar</a>
+                        <a href="{{ route('directives.create') }}" class="btn btn-primary">Adicionar</a>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -19,17 +19,18 @@
                                 <div class="row mb-4">
                                     <div class="col-md-3">
                                         <label class="form-label">Diretriz</label>
-                                        <input class="form-control" type="text" name="filter_name"
-                                            placeholder="Diretriz"
+                                        <input class="form-control" type="text" name="filter_name" placeholder="Diretriz"
                                             value="{{ $filter_name ?? '' }}" />
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Data ínicio</label>
-                                        <input class="form-control" type="date" name="filter_from" value="{{ $filter_from ?? '' }}" />
+                                        <input class="form-control" type="date" name="filter_from"
+                                            value="{{ $filter_from ?? '' }}" />
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Data fim</label>
-                                        <input class="form-control" type="date" name="filter_to" value="{{ $filter_to ?? '' }}" />
+                                        <input class="form-control" type="date" name="filter_to"
+                                            value="{{ $filter_to ?? '' }}" />
                                     </div>
                                     <div class="col-md-2 d-flex">
                                         <button class="btn btn-primary mt-auto">Filtrar</button>
@@ -50,7 +51,8 @@
                                             <tr>
                                                 <td>{{ $directive->name }}</td>
                                                 <td>{{ $directive->created_at->format('d/m/Y') }}</td>
-                                                <td width="180px" data-name="{{ $directive->name }}" data-id="{{ $directive->id }}">
+                                                <td width="180px" data-name="{{ $directive->name }}"
+                                                    data-id="{{ $directive->id }}">
                                                     <div class="btn-group">
                                                         <button class="btn btn-success btn-modal-view">
                                                             <i class="fa-regular fa-eye"></i>
@@ -96,7 +98,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nome da diretriz</label>
+                                <input class="form-control" type="text" name="name" placeholder="Nome da diretriz"
+                                    readonly maxlength="191" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -121,8 +131,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Nome da diretriz</label>
-                                    <input class="form-control" type="text" name="name" placeholder="Nome da diretriz"
-                                        required maxlength="191" />
+                                    <input class="form-control" type="text" name="name"
+                                        placeholder="Nome da diretriz" required maxlength="191" />
                                     @error('name')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -179,16 +189,20 @@
         $(function() {
             $('.btn-modal-view').on('click', function() {
                 const id = $(this).closest('td').data('id');
-                $('#viewModal').find('.modal-body').html(id);
-                $('#viewModal').modal('show');
-                // $.ajax({
-                //     url: '/projects/' + id,
-                //     type: 'GET',
-                //     success: function(data){
-                //         $('#modal-view').find('.modal-body').html(data);
-                //         $('#modal-view').modal('show');
-                //     }
-                // });
+
+                $.ajax({
+                    url: `/api/directives/${id}`,
+                    method: 'GET',
+                    success: function(data) {
+                        $('#viewModalTitle').text(data.data.name);
+                        $('#viewModal input[name="name"]').val(data.data.name);
+                        $('#viewModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
             });
 
             $('.btn-modal-edit').on('click', function() {
@@ -198,6 +212,25 @@
                 $('#editModal').find('form').attr('action', action.replace('_id', id));
                 $('#editModalTitle').html('Editar diretriz ' + name);
                 $('#editModal').find('input[name="name"]').val(name);
+                $.ajax({
+                    url: `/api/purposes`,
+                    method: 'GET',
+                    success: function(data) {
+                        const purposes = data.data;
+                        const select = $('#editModal').find('select[name="purpose_id"]');
+                        select.empty();
+                        select.append('<option value="">Selecione um propósito</option>');
+                        purposes.forEach(purpose => {
+                            select.append(
+                                `<option value="${purpose.id}">${purpose.name}</option>`
+                                );
+                        });
+                        $('#editModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                })
                 $('#editModal').modal('show');
             });
 

@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-center flex-column">
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <h1 class="h2 mb-3">Listagem de Propósitos</h1>
-                        <a href="{{route('purposes.create')}}" class="btn btn-primary">Adicionar</a>
+                        <a href="{{ route('purposes.create') }}" class="btn btn-primary">Adicionar</a>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -22,23 +22,26 @@
                                         <select class="form-control" name="filter_project_id" id="filter_project_id">
                                             <option value="">Selecione</option>
                                             @foreach ($projects as $project)
-                                                <option value="{{ $project->id }}" {{ ($project->id == $filter_project_id) ? 'selected' : '' }}>{{ $project->name }}</option>
+                                                <option value="{{ $project->id }}"
+                                                    {{ $project->id == $filter_project_id ? 'selected' : '' }}>
+                                                    {{ $project->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="form-label">Propósito</label>
                                         <input class="form-control" type="text" name="filter_name"
-                                            placeholder="Propósito"
-                                            value="{{ $filter_name ?? '' }}" />
+                                            placeholder="Propósito" value="{{ $filter_name ?? '' }}" />
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Data ínicio</label>
-                                        <input class="form-control" type="date" name="filter_from" value="{{ $filter_from ?? '' }}" />
+                                        <input class="form-control" type="date" name="filter_from"
+                                            value="{{ $filter_from ?? '' }}" />
                                     </div>
                                     <div class="col-md-2">
                                         <label class="form-label">Data fim</label>
-                                        <input class="form-control" type="date" name="filter_to" value="{{ $filter_to ?? '' }}" />
+                                        <input class="form-control" type="date" name="filter_to"
+                                            value="{{ $filter_to ?? '' }}" />
                                     </div>
                                     <div class="col-md-2 d-flex">
                                         <button class="btn btn-primary mt-auto">Filtrar</button>
@@ -49,8 +52,8 @@
                                 <table id="myTable" class="table table-responsive">
                                     <thead>
                                         <tr>
-                                            <th>Projeto</th>
                                             <th>Porpósito</th>
+                                            <th>Projeto</th>
                                             <th>Criado em</th>
                                             <th>Ações</th>
                                         </tr>
@@ -58,12 +61,14 @@
                                     <tbody>
                                         @forelse ($purposes as $purpose)
                                             <tr>
-                                                <td>{{ $purpose->project->name }}</td>
                                                 <td>{{ $purpose->name }}</td>
+                                                <td>{{ $purpose->project->name }}</td>
                                                 <td>{{ $purpose->created_at->format('d/m/Y') }}</td>
-                                                <td width="180px" data-name="{{ $purpose->name }}" data-id="{{ $purpose->id }}">
+                                                <td width="180px" data-name="{{ $purpose->name }}"
+                                                    data-id="{{ $purpose->id }}">
                                                     <div class="btn-group">
-                                                        <button class="btn btn-success btn-modal-view">
+                                                        <button class="btn btn-success btn-modal-view"
+                                                            data-project-name="{{ $purpose->project->name }}">
                                                             <i class="fa-regular fa-eye"></i>
                                                         </button>
                                                         <button class="btn btn-primary btn-modal-edit">
@@ -107,7 +112,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nome do propósito</label>
+                                <input class="form-control" type="text" name="name" placeholder="Nome do propósito"
+                                    readonly maxlength="191" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label class="form-label">Projeto</label>
+                                <input class="form-control" type="text" name="project_id" placeholder="Nome do Projeto"
+                                    readonly maxlength="191" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -132,8 +152,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Nome do propósito</label>
-                                    <input class="form-control" type="text" name="name" placeholder="Nome do propósito"
-                                        required maxlength="191" />
+                                    <input class="form-control" type="text" name="name"
+                                        placeholder="Nome do propósito" required maxlength="191" />
                                     @error('name')
                                         <p class="text-danger mt-1">{{ $message }}</p>
                                     @enderror
@@ -190,16 +210,19 @@
         $(function() {
             $('.btn-modal-view').on('click', function() {
                 const id = $(this).closest('td').data('id');
-                $('#viewModal').find('.modal-body').html(id);
-                $('#viewModal').modal('show');
-                // $.ajax({
-                //     url: '/projects/' + id,
-                //     type: 'GET',
-                //     success: function(data){
-                //         $('#modal-view').find('.modal-body').html(data);
-                //         $('#modal-view').modal('show');
-                //     }
-                // });
+                const project_name = $(this).attr('data-project-name');
+                $.ajax({
+                    url: `/api/purposes/${id}`,
+                    method: 'GET',
+                    success: function(data) {
+                        $('input[name="name"]').val(data.data.name);
+                        $('input[name="project_id"]').val(project_name);
+                        $('#viewModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
             });
 
             $('.btn-modal-edit').on('click', function() {
@@ -209,6 +232,25 @@
                 $('#editModal').find('form').attr('action', action.replace('_id', id));
                 $('#editModalTitle').html('Editar propósito ' + name);
                 $('#editModal').find('input[name="name"]').val(name);
+                $.ajax({
+                    url: '/api/projects',
+                    method: 'GET',
+                    success: function(data) {
+                        const projects = data.data;
+                        const select = $('#editModal').find('select[name="project_id"]');
+                        select.html('');
+                        select.append('<option value="">Selecione um projeto</option>');
+                        projects.forEach(function(project) {
+                            select.append(
+                                `<option value="${project.id}">${project.name}</option>`
+                                );
+                        });
+                        $('#editModal').modal('show');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
                 $('#editModal').modal('show');
             });
 
