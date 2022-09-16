@@ -21,7 +21,7 @@ class ProjectController extends Controller
             'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
-        $projects = Project::where('user_id', auth()->id());
+        $projects = Project::query();
 
         if($filter_name = $request->query('filter_name')) {
             $projects->where('name', 'like', "%{$filter_name}%");
@@ -62,7 +62,6 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $project = new Project($request->validated());
-        $project->user()->associate(auth()->user());
         $project->save();
 
         session()->flash('success', 'Projeto cadastrado com sucesso');

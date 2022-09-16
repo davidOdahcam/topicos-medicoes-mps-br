@@ -13,11 +13,6 @@ class Project extends Model
         'name'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function purposes()
     {
         return $this->hasMany(Purpose::class);
