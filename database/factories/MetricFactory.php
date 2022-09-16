@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Metric;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MetricFactory extends Factory
@@ -17,7 +18,7 @@ class MetricFactory extends Factory
             'term'             => $this->faker->words(3, true),
             'notion'           => $this->faker->words(3, true),
             'impact'           => $this->faker->words(3, true),
-            // 'synonymous'       => Metric::inRandomOrder()->limit(1)->first(),
+            'synonymous'       => $this->faker->boolean() ? Metric::inRandomOrder()->limit(1)->first() : null,
             'source'           => $this->faker->words(3, true),
             'type'             => $this->faker->words(3, true),
             'format'           => $this->faker->words(3, true),
