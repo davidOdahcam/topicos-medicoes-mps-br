@@ -75,7 +75,7 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <tr colspan="12">
+                                            <tr colspan="7">
                                                 <td>Nenhum resultado encontrado</td>
                                             </tr>
                                         @endforelse
@@ -107,19 +107,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label">Termo</label>
                                 <input class="form-control" type="text" name="modal_view_term" placeholder="Termo"
                                     readonly value="" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Objetivo</label>
-                                <input class="form-control" type="text" name="modal_view_objective_id"
-                                    placeholder="Objetivo" readonly value="" />
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -208,7 +200,6 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label class="form-label">Termo</label>
@@ -369,7 +360,11 @@
                     type: 'GET',
                     success: function(data) {
                         Object.keys(data.data).forEach((item) => {
-                            $(`input[name=modal_view_${item}]`).val(data.data[item]);
+                            if (item === 'synonymous') {
+                                $(`input[name=modal_view_${item}]`).val(data.data.synonymin.term);
+                            } else {
+                                $(`input[name=modal_view_${item}]`).val(data.data[item]);
+                            }
                         });
                     }
                 });

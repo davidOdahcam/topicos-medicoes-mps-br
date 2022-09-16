@@ -14,6 +14,9 @@ class MetricResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $metric = parent::toArray($request);
+        $metric['synonymin'] = optional($this->synonymin)->toArray();
+
+        return $metric;
     }
 }
