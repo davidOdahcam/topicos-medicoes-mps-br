@@ -247,16 +247,17 @@
                     success: function(response) {
                         const data = response.data;
                         let html = '';
-                        console.log(data.directives);
                         data.directives.map(directive => {
+                            //random number 6 digits
+                            const newId = Math.floor(100000 + Math.random() * 900000);
                             html += `
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingdirective-${directive.id}">
-                                        <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-directive-${directive.id}" aria-expanded-x="false" aria-controls="collapse-directive-${directive.id}">
+                                    <h2 class="accordion-header" id="headingdirective-${newId}">
+                                        <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-directive-${newId}" aria-expanded-x="false" aria-controls="collapse-directive-${newId}">
                                             <strong class="pe-1">Diretriz: </strong> ${directive.name}
                                         </button>
                                     </h2>
-                                    <div id="collapse-directive-${directive.id}" class="accordion-collapse collapse" aria-labelledby="headingdirective-${directive.id}" directive>
+                                    <div id="collapse-directive-${newId}" class="accordion-collapse collapse" aria-labelledby="headingdirective-${newId}" directive>
                                         <div class="accordion-body">
                                             ${addObjectives(directive.objectives)}
                                         </div>
@@ -283,14 +284,15 @@
             const addObjectives = objectives => {
                 let html = '';
                 objectives.map(objective => {
+                    const newId = Math.floor(100000 + Math.random() * 900000);
                     html += `
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingobjective${objective.id}">
-                                <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-objective${objective.id}" aria-expanded-x="false" aria-controls="collapse-objective${objective.id}">
+                            <h2 class="accordion-header" id="headingobjective${newId}">
+                                <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-objective${newId}" aria-expanded-x="false" aria-controls="collapse-objective${newId}">
                                     <strong class="pe-1">Objetivo: </strong> ${objective.name}
                                 </button>
                             </h2>
-                            <div id="collapse-objective${objective.id}" class="accordion-collapse collapse" aria-labelledby="headingobjective${objective.id}" >
+                            <div id="collapse-objective${newId}" class="accordion-collapse collapse" aria-labelledby="headingobjective${newId}" >
                                 <div class="accordion-body">
                                     ${addMetrics(objective.metrics)}
                                 </div>
@@ -304,6 +306,7 @@
             const addMetrics = metrics => {
                 let html = '';
                 metrics.map(metric => {
+                    
                     html += `
                         <div class="mb-3">
                             <h5 class="mb-2">${metric.term}</h5>
