@@ -24,11 +24,13 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <style>
 
+
+    <style>
         .form-control[readonly] {
             pointer-events: none;
         }
+
         .sidebar [data-bs-toggle=collapse]:after {
             border: solid;
             border-width: 0 .075rem .075rem 0;
@@ -62,17 +64,21 @@
             color: #fff;
             border: 0px;
         }
-        .toast-error{
-            background-color:#BD362F !important;
+
+        .toast-error {
+            background-color: #BD362F !important;
         }
-        .toast-success{
-            background-color:#51A351 !important;
+
+        .toast-success {
+            background-color: #51A351 !important;
         }
-        .toast-info{
-            background-color:#2F96B4 !important;
+
+        .toast-info {
+            background-color: #2F96B4 !important;
         }
-        .toast-warning{
-            background-color:#F89406 !important;
+
+        .toast-warning {
+            background-color: #F89406 !important;
         }
 
         .filter-white {
@@ -87,7 +93,7 @@
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="/">
                     <span class="align-middle">
-                        <img class="filter-white" src="{{asset('img/logo.png')}}" alt="logo">
+                        <img class="filter-white" src="{{ asset('img/logo.png') }}" alt="logo">
                     </span>
                 </a>
 
@@ -235,6 +241,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
     <script>
         @if (session('success'))
             toastr.success("{{ session('success') }}")
