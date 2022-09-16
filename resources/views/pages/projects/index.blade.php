@@ -247,10 +247,11 @@
                     success: function(response) {
                         const data = response.data;
                         let html = '';
-                        data.directives.map(directive => {
-                            //random number 6 digits
-                            const newId = Math.floor(100000 + Math.random() * 900000);
-                            html += `
+                        if (data.directives.length > 0) {
+                            data.directives.map(directive => {
+                                //random number 6 digits
+                                const newId = Math.floor(100000 + Math.random() * 900000);
+                                html += `
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingdirective-${newId}">
                                         <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-directive-${newId}" aria-expanded-x="false" aria-controls="collapse-directive-${newId}">
@@ -264,7 +265,12 @@
                                     </div>
                                 </div>
                             `;
-                        });
+                            });
+                        } else {
+                            html =
+                                '<p class="text-center my-3">Não há diretrizes cadastradas para este propósito.</p>';
+                        }
+
                         $(`#collapse-${id}`).children(0).html(html);
                         $('.close-accordion').on('click', function() {
                             const expanded = $(this).attr('aria-expanded-x');
@@ -283,9 +289,10 @@
 
             const addObjectives = objectives => {
                 let html = '';
-                objectives.map(objective => {
-                    const newId = Math.floor(100000 + Math.random() * 900000);
-                    html += `
+                if (objectives.length > 0) {
+                    objectives.map(objective => {
+                        const newId = Math.floor(100000 + Math.random() * 900000);
+                        html += `
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingobjective${newId}">
                                 <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-objective${newId}" aria-expanded-x="false" aria-controls="collapse-objective${newId}">
@@ -299,15 +306,20 @@
                             </div>
                         </div>
                     `;
-                });
+                    });
+                } else {
+                    html = '<p class="text-center my-3">Não há objetivos cadastrados para esta diretriz.</p>';
+                }
+
                 return html;
             }
 
             const addMetrics = metrics => {
                 let html = '';
-                metrics.map(metric => {
-                    
-                    html += `
+                if (metrics > 0) {
+                    metrics.map(metric => {
+
+                        html += `
                         <div class="mb-3">
                             <h5 class="mb-2">${metric.term}</h5>
                             <ul>
@@ -322,7 +334,11 @@
                             </ul>
                         </div>
                     `;
-                });
+                    });
+                } else {
+                    html = '<p class="text-center my-3">Não há métricas cadastradas para este objetivo.</p>';
+                }
+
                 return html;
             }
         });
