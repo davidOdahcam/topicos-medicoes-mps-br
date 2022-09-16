@@ -54,6 +54,7 @@
                                         <tr>
                                             <th>Porpósito</th>
                                             <th>Projeto</th>
+                                            <th class="text-center">Quantidade de diretrízes</th>
                                             <th>Criado em</th>
                                             <th>Ações</th>
                                         </tr>
@@ -63,6 +64,7 @@
                                             <tr>
                                                 <td>{{ $purpose->name }}</td>
                                                 <td>{{ $purpose->project->name }}</td>
+                                                <td class="text-center">{{ $purpose->directives_count }}</td>
                                                 <td>{{ $purpose->created_at->format('d/m/Y') }}</td>
                                                 <td width="180px" data-name="{{ $purpose->name }}"
                                                     data-id="{{ $purpose->id }}">

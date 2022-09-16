@@ -22,7 +22,7 @@ class PurposeController extends Controller
             'filter_to' => 'nullable|date_format:Y-m-d'
         ]);
 
-        $purposes = Purpose::query();
+        $purposes = Purpose::with('project')->withCount('directives');
 
         if($filter_project_id = $request->query('filter_project_id')) {
             $purposes->where('project_id', $filter_project_id);
