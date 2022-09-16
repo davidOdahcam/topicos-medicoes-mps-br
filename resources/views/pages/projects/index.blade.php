@@ -316,7 +316,7 @@
 
             const addMetrics = metrics => {
                 let html = '';
-                if (metrics > 0) {
+                if (metrics.length > 0) {
                     metrics.map(metric => {
 
                         html += `
