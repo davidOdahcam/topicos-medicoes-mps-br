@@ -372,10 +372,10 @@
 
             $('.btn-modal-edit').on('click', function() {
                 const id = $(this).closest('td').data('id');
-                const name = $(this).closest('td').attr('data-name');
+                const term = $(this).closest('td').data('term');
                 const action = "{{ route('metrics.update', '_id') }}";
                 $('#editModal').find('form').attr('action', action.replace('_id', id));
-                $('#editModalTitle').html('Editar métrica ' + name);
+                $('#editModalTitle').html('Editar métrica ' + term);
                 $('#editModal').modal('show');
                 $.ajax({
                     url: '/api/metrics/' + id,
@@ -401,10 +401,10 @@
 
             $('.btn-modal-delete').on('click', function() {
                 const id = $(this).closest('td').attr('data-id');
-                const name = $(this).closest('td').attr('data-name');
+                const term = $(this).closest('td').data('term');
                 const action = "{{ route('metrics.destroy', '_id') }}";
                 $('#deleteModal').find('form').attr('action', action.replace('_id', id));
-                $('#projectDeleteModalName').html(name);
+                $('#projectDeleteModalName').html(term);
                 $('#deleteModal').modal('show');
             });
         });
