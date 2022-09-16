@@ -66,11 +66,15 @@ class DirectiveController extends Controller
     public function store(DirectiveRequest $request)
     {
         $directive = Directive::create($request->validated());
+        $directive->purposes()->attach($request->input('purpose_id'));
 
         session()->flash('success', 'Diretriz cadastrada com sucesso!');
 
         if ($request->input('submit_type') === 'next') {
-            return redirect()->route('objectives.create', ['directive_id' => $directive->id]);
+            return redirect()->route('objectives.create', [
+                'directive_id' => $directive->id,
+                'purpose_id'   => $request->input('purpose_id')
+            ]);
         } else {
             return back();
         }

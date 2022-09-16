@@ -15,7 +15,7 @@ class Directive extends Model
 
     public function purposes()
     {
-        return $this->belongsToMany(Purpose::class);
+        return $this->belongsToMany(Purpose::class, 'purpose_directive');
     }
 
     public function objectives()
