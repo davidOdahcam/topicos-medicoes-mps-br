@@ -132,7 +132,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Selecione as diretrizes</label>
                                     <select name="directive_id[]" class="form-select form-select-lg" multiple required>

@@ -120,7 +120,7 @@
                                     readonly maxlength="191" />
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 d-none">
                             <div class="mb-3">
                                 <label class="form-label">Projeto</label>
                                 <input class="form-control" type="text" name="project_id" placeholder="Nome do Projeto"
