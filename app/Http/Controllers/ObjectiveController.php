@@ -51,9 +51,17 @@ class ObjectiveController extends Controller
      */
     public function create(Request $request)
     {
+        $purpose_id = $request->query('purpose_id');
+
+        $directives = Directive::select(['id', 'name'])->when($purpose_id, function ($query, $purpose_id) {
+            $query->whereHas('purposes', function ($query) use ($purpose_id) {
+                $query->where('id', $purpose_id);
+            });
+        })->get();
+
         return view('pages.objectives.create', [
             'directive_id' => $request->query('directive_id'),
-            'directives'   => Directive::select(['id', 'name'])->get()
+            'directives'   => $directives
         ]);
     }
 
