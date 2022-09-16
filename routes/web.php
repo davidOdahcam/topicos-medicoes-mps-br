@@ -20,13 +20,7 @@ use App\Http\Controllers\{
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('directives.index');
-    });
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth'])->name('dashboard');
+    Route::view('/', 'dashboard')->middleware(['auth'])->name('dashboard');
 
     Route::resource('projetos', ProjectController::class)
         ->except(['show', 'edit'])
