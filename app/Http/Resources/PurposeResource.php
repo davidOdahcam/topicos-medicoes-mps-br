@@ -14,6 +14,22 @@ class PurposeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $purpose = parent::toArray($request);
+
+        $purpose['directives'] = $this->directives->map(function ($directive) {
+            return [
+                'id' => $directive->id,
+                'name' => $directive->name,
+                'objectives' => $directive->objectives->map(function ($objective) {
+                    return [
+                        'id' => $objective->id,
+                        'name' => $objective->name,
+                        'metrics' => $objective->metrics->load('synonymin')
+                    ];
+                })
+            ];
+        });
+
+        return $purpose;
     }
 }
