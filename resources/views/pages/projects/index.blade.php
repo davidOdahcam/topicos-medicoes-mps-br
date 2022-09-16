@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-center flex-column">
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <h1 class="h2 mb-3">Listagem de Projetos</h1>
-                        <a href="{{route('projects.create')}}" class="btn btn-primary">Adicionar</a>
+                        <a href="{{ route('projects.create') }}" class="btn btn-primary">Adicionar</a>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -50,7 +50,8 @@
                                             <tr>
                                                 <td>{{ $project->name }}</td>
                                                 <td>{{ $project->created_at->format('d/m/Y') }}</td>
-                                                <td width="180px" data-name="{{ $project->name }}" data-id="{{ $project->id }}">
+                                                <td width="180px" data-name="{{ $project->name }}"
+                                                    data-id="{{ $project->id }}">
                                                     <div class="btn-group">
                                                         <button class="btn btn-success btn-modal-view">
                                                             <i class="fa-regular fa-eye"></i>
@@ -95,7 +96,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="accordion" id="accordionContainer">
 
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -167,16 +170,55 @@
         $(function() {
             $('.btn-modal-view').on('click', function() {
                 const id = $(this).closest('td').data('id');
-                $('#viewModal').find('.modal-body').html(id);
-                $('#viewModal').modal('show');
-                // $.ajax({
-                //     url: '/projects/' + id,
-                //     type: 'GET',
-                //     success: function(data){
-                //         $('#modal-view').find('.modal-body').html(data);
-                //         $('#modal-view').modal('show');
-                //     }
-                // });
+                const name = $(this).closest('td').data('name');
+                $('#viewModalTitle').text(name);
+                $.ajax({
+                    url: '/api/purposes?filter_project_id=' + id,
+                    method: 'GET',
+                    async: false,
+                    success: function(response) {
+                        const data = response.data;
+                        let html = '';
+                        data.forEach(function(purpose) {
+                            html += `
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading${purpose.id}">
+                                        <button class="accordion-button get-all-info close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${purpose.id}" aria-expanded-x="false" aria-controls="collapse-${purpose.id}">
+                                            <strong class="pe-1">Propósito: </strong> ${purpose.name}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse-${purpose.id}" class="accordion-collapse collapse" aria-labelledby="heading${purpose.id}" >
+                                        <div class="accordion-body">
+                                            <div class="d-flex justify-content-center">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $('#accordionContainer').html(html);
+                        $('#viewModal').modal('show');
+                    }
+                });
+                $('.get-all-info').on('click', function() {
+                    const id = $(this).attr('data-bs-target').replace('#collapse-', '');
+                    getAllInfo(id);
+
+                });
+                $('.close-accordion').on('click', function() {
+                    const expanded = $(this).attr('aria-expanded-x');
+                    if (expanded == 'false') {
+                        $(this).attr('aria-expanded-x', 'true')
+                    } else {
+                        $(this).attr('aria-expanded-x', 'false')
+                        setTimeout(() => {
+                            $(this).parent().next().collapse('hide');
+                        }, 400);
+                    }
+                });
             });
 
             $('.btn-modal-edit').on('click', function() {
@@ -197,6 +239,89 @@
                 $('#projectDeleteModalName').html(name);
                 $('#deleteModal').modal('show');
             });
+
+            const getAllInfo = id => {
+                $.ajax({
+                    url: '/api/purposes/' + id,
+                    method: 'GET',
+                    success: function(response) {
+                        const data = response.data;
+                        let html = '';
+                        console.log(data.directives);
+                        data.directives.map(directive => {
+                            html += `
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingdirective-${directive.id}">
+                                        <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-directive-${directive.id}" aria-expanded-x="false" aria-controls="collapse-directive-${directive.id}">
+                                            <strong class="pe-1">Diretriz: </strong> ${directive.name}
+                                        </button>
+                                    </h2>
+                                    <div id="collapse-directive-${directive.id}" class="accordion-collapse collapse" aria-labelledby="headingdirective-${directive.id}" directive>
+                                        <div class="accordion-body">
+                                            ${addObjectives(directive.objectives)}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $(`#collapse-${id}`).children(0).html(html);
+                        $('.close-accordion').on('click', function() {
+                            const expanded = $(this).attr('aria-expanded-x');
+                            if (expanded == 'false') {
+                                $(this).attr('aria-expanded-x', 'true')
+                            } else {
+                                $(this).attr('aria-expanded-x', 'false')
+                                setTimeout(() => {
+                                    $(this).parent().next().collapse('hide');
+                                }, 400);
+                            }
+                        });
+                    }
+                });
+            };
+
+            const addObjectives = objectives => {
+                let html = '';
+                objectives.map(objective => {
+                    html += `
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingobjective${objective.id}">
+                                <button class="accordion-button close-accordion collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-objective${objective.id}" aria-expanded-x="false" aria-controls="collapse-objective${objective.id}">
+                                    <strong class="pe-1">Objetivo: </strong> ${objective.name}
+                                </button>
+                            </h2>
+                            <div id="collapse-objective${objective.id}" class="accordion-collapse collapse" aria-labelledby="headingobjective${objective.id}" >
+                                <div class="accordion-body">
+                                    ${addMetrics(objective.metrics)}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                return html;
+            }
+
+            const addMetrics = metrics => {
+                let html = '';
+                metrics.map(metric => {
+                    html += `
+                        <div class="mb-3">
+                            <h5 class="mb-2">${metric.term}</h5>
+                            <ul>
+                                <li>Termo: ${metric.term}</li>
+                                <li>Noção: ${metric.notion}</li>
+                                <li>Impacto: ${metric.impact}</li>
+                                <li>Fonte: ${metric.source}</li>
+                                <li>Tipo: ${metric.type}</li>
+                                <li>Formato: ${metric.format}</li>
+                                <li>Indicador: ${metric.indicator_type}</li>
+                                <li>Como calcular: ${metric.how_to_calculate}</li>
+                            </ul>
+                        </div>
+                    `;
+                });
+                return html;
+            }
         });
     </script>
 @endpush

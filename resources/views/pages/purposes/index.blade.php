@@ -161,7 +161,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Selecione o projeto</label>
                                     <select name="project_id" class="form-select" required>
